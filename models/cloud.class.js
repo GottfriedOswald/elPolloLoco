@@ -9,5 +9,6 @@ class Cloud extends MovableObject{
         this.x = x;
         this.height = height;
         this.width = width;
+        this.animate(0.10);
     };
 }
