@@ -6,7 +6,14 @@ class World {
         this.draw();
     }
 
-    character = new Character();
+    // Variablen
+    canvasToClear;
+    ctx;
+
+    // Objekte
+    // wird ein Objekt der Klasse World erstellt, so werden auch weitere Objekte der der unten aufgeführten Klassen erstellt.
+ character = new Character(); 
+
     enemies = [
         new Chicken('img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/1.Ga_paso_derecho.png',(200 + Math.random()*500).toFixed(0),410,49,50),
         new Chicken('img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/1.Ga_paso_derecho.png',(200 + Math.random()*500).toFixed(0),410,49,50),
@@ -30,17 +37,21 @@ class World {
     ];
 
     
-    canvasToClear;
-    ctx;
+  
 
     
-
+    /**
+     * 
+     * @param {} - Objekte werden an canvas übergeben
+     */
     draw() {
-        this.ctx.clearRect(0, 0, this.canvasToClear.width, this.canvasToClear.height);
+        this.ctx.clearRect(0, 0, this.canvasToClear.width, this.canvasToClear.height); // canvas-Fläche wird geleert
+
         this.addObjectsToMap(this.landscapes);
         this.addObjectsToMap(this.clouds);
 
         this.addToMap(this.character);
+
         this.addObjectsToMap(this.enemies);
         
 
