@@ -7,8 +7,6 @@ class MovableObject{
 
 
 
-    diff;
-
 
     loadImage(path){
         this.img = new Image();
