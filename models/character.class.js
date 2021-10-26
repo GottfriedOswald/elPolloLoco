@@ -2,6 +2,7 @@ class Character extends MovableObject {
 
     height = 240;
     width = 122;
+    intervalTime = 75;
 
     // Array mit Bildern die in Folge das Laufen des Characters animieren
     IMAGES_WALKING = [
@@ -15,27 +16,13 @@ class Character extends MovableObject {
 
     
 
-    constructor() {
-        super().loadImage('img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-21.png');
+    constructor(imgUrl, x, y) {
+        super().loadImage(imgUrl);
         this.loadImages(this.IMAGES_WALKING);
         
-        this.x = 80;
-        this.y = 230;
-        this.walk();
-    }
-
-    walk(){
-        setInterval(() => {
-            let i = this.currentImage % this.IMAGES_WALKING.length;
-            let path = this.IMAGES_WALKING[i];
-            this.img = this.imageCache[path]
-            if (this.currentImage > 998) {
-                this.currentImage = 0;
-                console.log('currentImage=' + this.currentImage);
-            }
-            this.currentImage++;
-            console.log('currentImage='+this.currentImage);
-        },75);
+        this.x = x;
+        this.y = y;
+        this.walkanimation();
     }
 
     jump() {

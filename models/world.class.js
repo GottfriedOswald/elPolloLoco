@@ -12,11 +12,11 @@ class World {
 
     // Objekte
     // wird ein Objekt der Klasse World erstellt, so werden auch weitere Objekte der der unten aufgeführten Klassen erstellt.
- character = new Character(); 
+ character = new Character('img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-21.png',80,230); 
 
     enemies = [
         new Chicken('img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/1.Ga_paso_derecho.png',(200 + Math.random()*500).toFixed(0),410,49,50),
-        new Chicken('img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/1.Ga_paso_derecho.png',(200 + Math.random()*500).toFixed(0),410,49,50),
+        new Chicken('img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/2-Ga_centro.png',(200 + Math.random()*500).toFixed(0),410,49,50),
         new Chicken('img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/1.Ga_paso_derecho.png',(200 + Math.random()*500).toFixed(0),410,49,50),
     ];
 
