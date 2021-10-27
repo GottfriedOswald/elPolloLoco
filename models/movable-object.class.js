@@ -6,9 +6,6 @@ class MovableObject{
     imageCache = {};
     currentImage = 0;
 
-
-
-
     loadImage(path){
         this.img = new Image();
         this.img.src = path;
@@ -34,9 +31,7 @@ class MovableObject{
             this.x -= speed;
         },1000/60);
     }
-
     
-
     walkanimation(){
         setInterval(() => {
             let i = this.currentImage % this.IMAGES_WALKING.length;

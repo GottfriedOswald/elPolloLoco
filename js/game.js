@@ -1,5 +1,6 @@
 let canvas;
 let world;
+let keyboard = new Keyboard();
 
 function init() {
     canvas = document.getElementById('canvas');
@@ -12,3 +13,10 @@ function init() {
     console.log('My Landscape is ', world.landscapes[0]);
 }
 
+window.addEventListener('keydown',e => {
+    console.log(e);
+    if (e.key === "ArrowUp") {
+        console.log('es wurde gedrückt');
+
+    }
+})
