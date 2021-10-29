@@ -62,7 +62,8 @@ class World {
 
 
 
-        //draw() wird immer wieder aufgerufen
+        // draw() wird immer wieder aufgerufen
+        // "this" muss in eine neu erstellte Variable ("self") kopiert werden da in der anonymen Funktion der "requestAnimationFrame"-Funktion das "this" nicht angenommen wird
         let self = this;
         requestAnimationFrame(function () {
             self.draw();
