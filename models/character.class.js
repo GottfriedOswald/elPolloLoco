@@ -3,6 +3,8 @@ class Character extends MovableObject {
     height = 240;
     width = 122;
     intervalTime = 75;
+    world;
+    speed = 5;
 
     // Array mit Bildern die in Folge das Laufen des Characters animieren
     IMAGES_WALKING = [
@@ -13,7 +15,7 @@ class Character extends MovableObject {
         'img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-25.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-26.png'
     ];
-    world;
+    
 
 
 
@@ -27,8 +29,20 @@ class Character extends MovableObject {
     }
 
     walkanimation() {
+        
         setInterval(() => {
-            if (this.world.keyboardInWorld.RIGHT) {
+                if (this.world.keyboardInWorld.RIGHT) {
+                    this.x += this.speed;
+                    this.otherDirection = false;
+                }
+                if (this.world.keyboardInWorld.LEFT) {
+                    this.x -= this.speed;
+                    this.otherDirection = true;
+                }
+        }, 1000 / 60);
+
+        setInterval(() => {
+            if (this.world.keyboardInWorld.RIGHT || this.world.keyboardInWorld.LEFT) {
                 let i = this.currentImage % this.IMAGES_WALKING.length;
                 let path = this.IMAGES_WALKING[i];
                 this.img = this.imageCache[path]

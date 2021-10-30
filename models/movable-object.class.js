@@ -5,6 +5,7 @@ class MovableObject{
     img;
     imageCache = {};
     currentImage = 0;
+    otherDirection = false; // Variable zum spiegeln des Characters
 
     loadImage(path){
         this.img = new Image();
@@ -31,16 +32,4 @@ class MovableObject{
             this.x -= speed;
         },1000/60);
     }
-    
-    // walkanimation(){
-    //     setInterval(() => {
-    //         let i = this.currentImage % this.IMAGES_WALKING.length;
-    //         let path = this.IMAGES_WALKING[i];
-    //         this.img = this.imageCache[path]
-    //         if (this.currentImage > 998) {
-    //             this.currentImage = 0;
-    //         }
-    //         this.currentImage++;
-    //     },this.intervalTime);
-    // }
 }

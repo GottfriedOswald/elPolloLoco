@@ -40,6 +40,10 @@ class World {
         this.setWorld();
     }
 
+    /**
+     *  diese Funktion übergibt der in der Characterklasse erstellten world-variablen den Inhalt dieser Worldklasse.
+     * @param {} - no parameters are passed
+     */
     setWorld() {
         this.character.world = this;
     }
@@ -47,8 +51,8 @@ class World {
 
 
     /**
-     * 
-     * @param {} - Objekte werden an canvas übergeben
+     *  diese Funktion übergibt die Objekte an canvas
+     * @param {} - no parameters are passed
      */
     draw() {
         this.ctx.clearRect(0, 0, this.canvasToClear.width, this.canvasToClear.height); // canvas-Fläche wird geleert
@@ -70,13 +74,31 @@ class World {
         });
     }
 
+    /**
+     *  diese Funktion übergibt Objekte aus einem Array weiter an die addToMap-Funktion
+     * @param {*} objects 
+     */
     addObjectsToMap(objects) {
         objects.forEach(object => {
             this.addToMap(object);
         });
     };
 
-    addToMap(moveableObject) {
-        this.ctx.drawImage(moveableObject.img, moveableObject.x, moveableObject.y, moveableObject.width, moveableObject.height);
+    /**
+     * diese Funktion übergibt Objekte an die Context-Variable die diese dann in canvas positioniert
+     * @param {*} moveableObject 
+     */
+    addToMap(mo) {
+        if (mo.otherDirection) {
+            this.ctx.save();
+            this.ctx.translate(mo.width, 0);
+            this.ctx.scale(-1, 1);
+            mo.x = mo.x * -1;
+        }
+        this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
+        if (mo.otherDirection) {
+            mo.x = mo.x * -1;
+            this.ctx.restore();
+        }
     }
 }
