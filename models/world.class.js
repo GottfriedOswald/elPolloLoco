@@ -24,12 +24,20 @@ class World {
     ];
 
     landscapes = [
-        // new Landscape('img/5.Fondo/Capas/1.suelo-fondo1/1.suelo-fondo1_small/1.png',0,264,216,384),
-        // new Landscape('img/5.Fondo/Capas/1.suelo-fondo1/1.suelo-fondo1_small/2.png',390,264,216,384),
+        new Landscape('img/5.Fondo/Capas/5.cielo_780-438px.jpg', -779, 0, 480, 780),
+        new Landscape('img/5.Fondo/Capas/3.Fondo3/3.Fondo3_small/Completo.png', -779, 161, 319, 780),
+        new Landscape('img/5.Fondo/Capas/2.Fondo2/2.Fondo2_small/completo.png', -779, 161, 319, 780),
+        new Landscape('img/5.Fondo/Capas/1.suelo-fondo1/1.suelo-fondo1_small/completo.png', -779, 161, 319, 780),
+
         new Landscape('img/5.Fondo/Capas/5.cielo_780-438px.jpg', 0, 0, 480, 780),
         new Landscape('img/5.Fondo/Capas/3.Fondo3/3.Fondo3_small/Completo.png', 0, 161, 319, 780),
         new Landscape('img/5.Fondo/Capas/2.Fondo2/2.Fondo2_small/completo.png', 0, 161, 319, 780),
         new Landscape('img/5.Fondo/Capas/1.suelo-fondo1/1.suelo-fondo1_small/completo.png', 0, 161, 319, 780),
+
+        new Landscape('img/5.Fondo/Capas/5.cielo_780-438px.jpg', 779, 0, 480, 780),
+        new Landscape('img/5.Fondo/Capas/3.Fondo3/3.Fondo3_small/Completo.png', 779, 161, 319, 780),
+        new Landscape('img/5.Fondo/Capas/2.Fondo2/2.Fondo2_small/completo.png', 779, 161, 319, 780),
+        new Landscape('img/5.Fondo/Capas/1.suelo-fondo1/1.suelo-fondo1_small/completo.png', 779, 161, 319, 780),
     ];
 
     constructor(canvas, keyboard) {
