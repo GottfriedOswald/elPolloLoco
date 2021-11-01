@@ -4,6 +4,7 @@ class World {
     canvasToClear;
     ctx;
     keyboardInWorld;
+    camera_x = 0; // Variable zum Verschieben des sichtbaren Bereichs / der Kamera / des Bildausschnitts
 
 
     // Objekte
@@ -26,10 +27,9 @@ class World {
         // new Landscape('img/5.Fondo/Capas/1.suelo-fondo1/1.suelo-fondo1_small/1.png',0,264,216,384),
         // new Landscape('img/5.Fondo/Capas/1.suelo-fondo1/1.suelo-fondo1_small/2.png',390,264,216,384),
         new Landscape('img/5.Fondo/Capas/5.cielo_780-438px.jpg', 0, 0, 480, 780),
-        new Landscape('img/5.Fondo/Capas/3.Fondo3/3.Fondo3_small/Completo.png', 0, 161, 319, 790),
-        new Landscape('img/5.Fondo/Capas/2.Fondo2/2.Fondo2_small/completo.png', 0, 161, 319, 790),
-        new Landscape('img/5.Fondo/Capas/1.suelo-fondo1/1.suelo-fondo1_small/completo.png', 0, 161, 319, 790),
-
+        new Landscape('img/5.Fondo/Capas/3.Fondo3/3.Fondo3_small/Completo.png', 0, 161, 319, 780),
+        new Landscape('img/5.Fondo/Capas/2.Fondo2/2.Fondo2_small/completo.png', 0, 161, 319, 780),
+        new Landscape('img/5.Fondo/Capas/1.suelo-fondo1/1.suelo-fondo1_small/completo.png', 0, 161, 319, 780),
     ];
 
     constructor(canvas, keyboard) {
@@ -57,14 +57,14 @@ class World {
     draw() {
         this.ctx.clearRect(0, 0, this.canvasToClear.width, this.canvasToClear.height); // canvas-Fläche wird geleert
 
+        this.ctx.translate(this.camera_x,0);
+
         this.addObjectsToMap(this.landscapes);
         this.addObjectsToMap(this.clouds);
-
         this.addToMap(this.character);
-
         this.addObjectsToMap(this.enemies);
 
-
+        this.ctx.translate(-this.camera_x,0);
 
         // draw() wird immer wieder aufgerufen
         // "this" muss in eine neu erstellte Variable ("self") kopiert werden da in der anonymen Funktion der "requestAnimationFrame"-Funktion das "this" nicht angenommen wird
@@ -89,16 +89,16 @@ class World {
      * @param {*} moveableObject 
      */
     addToMap(mo) {
-        if (mo.otherDirection) {
-            this.ctx.save();
-            this.ctx.translate(mo.width, 0);
-            this.ctx.scale(-1, 1);
-            mo.x = mo.x * -1;
+        if (mo.otherDirection) { //.....................................prüft ob sich "otherDirection" verändert hat
+            this.ctx.save(); //.........................................speichert den aktuellen Zustand
+            this.ctx.translate(mo.width, 0); //.........................verschiebt das Bild um seine eigene Breite
+            this.ctx.scale(-1, 1); //...................................spiegelt das Bild um die x-Achse
+            mo.x = mo.x * -1; //........................................verändert die x-Position ins Gegenteilige
         }
         this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
-        if (mo.otherDirection) {
-            mo.x = mo.x * -1;
-            this.ctx.restore();
+        if (mo.otherDirection) { //.....................................prüft ob sich "otherDirection" verändert hat
+            mo.x = mo.x * -1; //........................................verändert die x-Position ins Gegenteilige
+            this.ctx.restore(); //......................................macht Änderung von "scale" und "translate" wieder rückgängig bzw. stellt den "save"-Zustand wieder her
         }
     }
 }

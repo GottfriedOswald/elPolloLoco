@@ -4,7 +4,7 @@ class Character extends MovableObject {
     width = 122;
     intervalTime = 75;
     world;
-    speed = 5;
+    speed = 7;
 
     // Array mit Bildern die in Folge das Laufen des Characters animieren
     IMAGES_WALKING = [
@@ -39,6 +39,7 @@ class Character extends MovableObject {
                     this.x -= this.speed;
                     this.otherDirection = true;
                 }
+                this.world.camera_x = -this.x+80;
         }, 1000 / 60);
 
         setInterval(() => {
