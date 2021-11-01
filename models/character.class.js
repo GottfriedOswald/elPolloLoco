@@ -15,7 +15,7 @@ class Character extends MovableObject {
         'img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-25.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-26.png'
     ];
-    
+
 
 
 
@@ -29,17 +29,19 @@ class Character extends MovableObject {
     }
 
     walkanimation() {
-        
+
         setInterval(() => {
-                if (this.world.keyboardInWorld.RIGHT) {
-                    this.x += this.speed;
-                    this.otherDirection = false;
-                }
-                if (this.world.keyboardInWorld.LEFT) {
-                    this.x -= this.speed;
-                    this.otherDirection = true;
-                }
-                this.world.camera_x = -this.x+80;
+            if (this.world.keyboardInWorld.RIGHT) {
+                this.x += this.speed;
+                this.otherDirection = false;
+            }
+            if (this.world.keyboardInWorld.LEFT) {
+                this.x -= this.speed;
+                this.otherDirection = true;
+            }
+            //....variable "camera_x" wird mit dem Character verbunden
+            //....die "80" bewirkt das Pepe nicht zu sehr an den linken Rand gesetzt wird 
+            this.world.camera_x = -this.x + 80;
         }, 1000 / 60);
 
         setInterval(() => {
