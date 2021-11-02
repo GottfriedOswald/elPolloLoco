@@ -31,17 +31,17 @@ class Character extends MovableObject {
     walkanimation() {
 
         setInterval(() => {
-            if (this.world.keyboardInWorld.RIGHT) {
+            if (this.world.keyboardInWorld.RIGHT && this.x < 2420) {
                 this.x += this.speed;
                 this.otherDirection = false;
             }
-            if (this.world.keyboardInWorld.LEFT) {
+            if (this.world.keyboardInWorld.LEFT && this.x > -670) {
                 this.x -= this.speed;
                 this.otherDirection = true;
             }
             //....variable "camera_x" wird mit dem Character verbunden
             //....die "80" bewirkt das Pepe nicht zu sehr an den linken Rand gesetzt wird 
-            this.world.camera_x = -this.x + 80;
+            this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
 
         setInterval(() => {
