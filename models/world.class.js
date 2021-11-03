@@ -13,6 +13,8 @@ class World {
 
     enemies = level1.enemies;
 
+    endboss = level1.endboss;
+
     clouds = level1.clouds;
 
     landscapes = level1.landscapes;
@@ -48,6 +50,7 @@ class World {
         this.addObjectsToMap(this.clouds);
         this.addToMap(this.character);
         this.addObjectsToMap(this.enemies);
+        // this.addToMap(this.endboss);
 
         this.ctx.translate(-this.camera_x,0);
 

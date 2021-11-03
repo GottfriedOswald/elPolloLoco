@@ -3,6 +3,7 @@ const level1 = new Level(
         new Chicken('img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/1.Ga_paso_derecho.png', (2200 + Math.random() * 500).toFixed(0), 410, 49, 50),
         new Chicken('img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/2-Ga_centro.png', (2200 + Math.random() * 500).toFixed(0), 410, 49, 50),
         new Chicken('img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/1.Ga_paso_derecho.png', (2200 + Math.random() * 500).toFixed(0), 410, 49, 50),
+        new Endboss('img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/1.Caminata/G2.png',550, 225, 243, 209),
     ],
     [
         new Cloud('img/5.Fondo/Capas/4.nubes/nubes_small/1.png', (Math.random() * 396).toFixed(0), 216, 384),
