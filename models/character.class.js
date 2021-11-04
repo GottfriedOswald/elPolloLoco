@@ -40,15 +40,13 @@ class Character extends MovableObject {
                 this.otherDirection = true;
             }
             //....variable "camera_x" wird mit dem Character verbunden
-            //....die "80" bewirkt das Pepe nicht zu sehr an den linken Rand gesetzt wird 
+            //....die "100" bewirkt das Pepe nicht zu sehr an den linken Rand gesetzt wird 
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
 
         setInterval(() => {
             if (this.world.keyboardInWorld.RIGHT || this.world.keyboardInWorld.LEFT) {
-                let i = this.currentImage % this.IMAGES_WALKING.length;
-                let path = this.IMAGES_WALKING[i];
-                this.img = this.imageCache[path]
+                this.playAnimation();
                 if (this.currentImage > 998) {
                     this.currentImage = 0;
                 }
