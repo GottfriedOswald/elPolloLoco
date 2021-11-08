@@ -8,11 +8,11 @@ class MovableObject {
     currentImage = 0;
     otherDirection = false; // Variable zum spiegeln des Characters
     speedY = 0; // Variable für Fallgeschwindigkeit
-    acceleration = 1; // Variable für Beschleunigung
+    acceleration = 2.5; // Variable für Beschleunigung
 
     applyGravity() {
         setInterval(() => {
-            if (this.isAboveGround()) {
+            if (this.isAboveGround() || this.speedY > 0) {
                 this.y = this.y - this.speedY; //..............speedY wird von y abgezogen, aber da der Anfangswert 0 ist wird nichts abgezogen
                 this.speedY = this.speedY - this.acceleration; //..hier wird speedY negiert und somit wird im nächsten Durchlauf speedY zu y dazu gezählt da Minus minus Minus Plus gibt (-) - (-) = (+)
             }
@@ -53,9 +53,15 @@ class MovableObject {
         }, 1000 / 60);
     }
 
-    playAnimation() {
-        let i = this.currentImage % this.IMAGES_WALKING.length;
-        let path = this.IMAGES_WALKING[i];
+    /**
+     * this function loads a sequence of images
+     * 
+     * @param {String} imagesForAnimation [path for image]
+     */
+    playAnimation(imagesForAnimation) {
+        let i = this.currentImage % imagesForAnimation.length;
+        let path = imagesForAnimation[i];
         this.img = this.imageCache[path]
+        this.currentImage++;
     }
 }

@@ -18,12 +18,26 @@ class Character extends MovableObject {
         'img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-26.png'
     ];
 
+    IMAGES_JUMPING = [
+        'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-31.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-32.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-33.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-34.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-35.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-36.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-37.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-38.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-39.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-40.png'
+    ];
+
 
 
 
     constructor(imgUrl, x, y, height, width) {
         super().loadImage(imgUrl);
         this.loadImages(this.IMAGES_WALKING);
+        this.loadImages(this.IMAGES_JUMPING);
         this.height = height;
         this.width = width;
         this.x = x;
@@ -36,6 +50,7 @@ class Character extends MovableObject {
     walkanimation() {
 
         setInterval(() => {
+
             this.walking_sound.pause();
             if (this.world.keyboardInWorld.RIGHT && this.x < 2420) {
                 this.x += this.speed;
@@ -47,20 +62,28 @@ class Character extends MovableObject {
                 this.otherDirection = true;
                 this.walking_sound.play();
             }
+            if (this.world.keyboardInWorld.UP) {
+                this.speedY = 20;
+            }
+
             //....variable "camera_x" wird mit dem Character verbunden
             //....die "100" bewirkt das Pepe nicht zu sehr an den linken Rand gesetzt wird 
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60);
 
         setInterval(() => {
+
+            if (this.isAboveGround()) {
+                this.playAnimation(this.IMAGES_JUMPING);
+            }else{
+
             if (this.world.keyboardInWorld.RIGHT || this.world.keyboardInWorld.LEFT) {
-                this.playAnimation();
-                if (this.currentImage > 998) {
-                    this.currentImage = 0;
-                }
-                this.currentImage++;
+                this.playAnimation(this.IMAGES_WALKING); // ich übergebe die Bilder der Lauf-Animation an die Funktion
             }
+        }
         }, this.intervalTime);
+
+        
     }
 
     jump() {
