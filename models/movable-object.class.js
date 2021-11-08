@@ -8,7 +8,7 @@ class MovableObject {
     currentImage = 0;
     otherDirection = false; // Variable zum spiegeln des Characters
     speedY = 0; // Variable für Fallgeschwindigkeit
-    acceleration = 2.5; // Variable für Beschleunigung
+    acceleration = 1.2; // Variable für Beschleunigung
 
     applyGravity() {
         setInterval(() => {

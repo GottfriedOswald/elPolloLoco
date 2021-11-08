@@ -62,9 +62,12 @@ class Character extends MovableObject {
                 this.otherDirection = true;
                 this.walking_sound.play();
             }
-            if (this.world.keyboardInWorld.UP) {
-                this.speedY = 20;
+            if (this.isAboveGround()==false) {
+                if (this.world.keyboardInWorld.UP) {
+                    this.speedY = 20;
+                }
             }
+            
 
             //....variable "camera_x" wird mit dem Character verbunden
             //....die "100" bewirkt das Pepe nicht zu sehr an den linken Rand gesetzt wird 
