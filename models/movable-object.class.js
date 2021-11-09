@@ -40,17 +40,36 @@ class MovableObject {
         });
     }
 
+    /**
+     * Character move right while right arrow key is pressed
+     */
     moveRight() {
-        console.log('moving right');
+        this.x += this.speed;
+        this.otherDirection = false;
     }
 
-    moveLeft(speed) {
+    moveLeft() {
+        this.x -= this.speed;
+        this.otherDirection = true;
+    }
+
+    ObjectsMoveLeft(speed) {
         setInterval(() => {
             if (this.x < (0 - this.width)) {
                 this.x = 780 + this.width;
             }
             this.x -= speed;
         }, 1000 / 60);
+    }
+
+    playWalkingSoundOfCharacter() {
+        if (!this.isAboveGround()) {
+            this.walking_sound.play();
+        }
+    }
+
+    playJumpSoundOfCharacter(){
+        this.jump_sound.play();
     }
 
     /**
@@ -63,5 +82,9 @@ class MovableObject {
         let path = imagesForAnimation[i];
         this.img = this.imageCache[path]
         this.currentImage++;
+    }
+
+    jump() {
+        this.speedY = 25;
     }
 }

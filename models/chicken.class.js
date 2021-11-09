@@ -24,12 +24,12 @@ class Chicken extends MovableObject{
         this.height = height;
         this.width = width;
         this.walkanimation();
-        this.moveLeft(this.speed + (Math.random()*this.speedfaktor));
+        this.ObjectsMoveLeft(this.speed + (Math.random()*this.speedfaktor));
     }
 
     walkanimation(){
         setInterval(() => {
-            this.playAnimation();
+            this.playAnimation(this.IMAGES_WALKING);
             if (this.currentImage > 998) {
                 this.currentImage = 0;
             }

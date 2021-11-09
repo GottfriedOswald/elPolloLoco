@@ -6,6 +6,7 @@ class Character extends MovableObject {
     world;
     speed = 7;
     walking_sound = new Audio('audio/running_hard_surface.mp3');
+    jump_sound = new Audio('audio/jump.mp3');
 
 
     // Array mit Bildern die in Folge das Laufen des Characters animieren
@@ -53,22 +54,20 @@ class Character extends MovableObject {
 
             this.walking_sound.pause();
             if (this.world.keyboardInWorld.RIGHT && this.x < 2420) {
-                this.x += this.speed;
-                this.otherDirection = false;
-                this.walking_sound.play();
+                this.moveRight();
+                this.playWalkingSoundOfCharacter();
             }
+
             if (this.world.keyboardInWorld.LEFT && this.x > -670) {
-                this.x -= this.speed;
-                this.otherDirection = true;
-                this.walking_sound.play();
+                this.moveLeft();
+                this.playWalkingSoundOfCharacter();
             }
-            if (this.isAboveGround()==false) {
-                if (this.world.keyboardInWorld.UP) {
-                    this.speedY = 20;
-                }
+
+            if (this.world.keyboardInWorld.SPACE && !this.isAboveGround()) {
+                this.jump();     
+                this.playJumpSoundOfCharacter()          
             }
             
-
             //....variable "camera_x" wird mit dem Character verbunden
             //....die "100" bewirkt das Pepe nicht zu sehr an den linken Rand gesetzt wird 
             this.world.camera_x = -this.x + 100;
@@ -85,11 +84,5 @@ class Character extends MovableObject {
             }
         }
         }, this.intervalTime);
-
-        
-    }
-
-    jump() {
-
     }
 }

@@ -45,12 +45,11 @@ class World {
         this.ctx.clearRect(0, 0, this.canvasToClear.width, this.canvasToClear.height); // canvas-Fläche wird geleert
 
         this.ctx.translate(this.camera_x,0);
-
         this.addObjectsToMap(this.landscapes);
         this.addObjectsToMap(this.clouds);
+        
         this.addToMap(this.character);
         this.addObjectsToMap(this.enemies);
-        // this.addToMap(this.endboss);
 
         this.ctx.translate(-this.camera_x,0);
 
