@@ -44,14 +44,14 @@ class World {
     draw() {
         this.ctx.clearRect(0, 0, this.canvasToClear.width, this.canvasToClear.height); // canvas-Fläche wird geleert
 
-        this.ctx.translate(this.camera_x,0);
+        this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.landscapes);
         this.addObjectsToMap(this.clouds);
-        
+
         this.addToMap(this.character);
         this.addObjectsToMap(this.enemies);
 
-        this.ctx.translate(-this.camera_x,0);
+        this.ctx.translate(-this.camera_x, 0);
 
         // draw() wird immer wieder aufgerufen
         // "this" muss in eine neu erstellte Variable ("self") kopiert werden da in der anonymen Funktion der "requestAnimationFrame"-Funktion das "this" nicht angenommen wird
@@ -83,9 +83,17 @@ class World {
             mo.x = mo.x * -1; //........................................verändert die x-Position ins Gegenteilige
         }
         this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
+        this.ctx.beginPath();
+        this.ctx.lineWidth = '3';
+        this.ctx.strokeStyle = 'blue';
+        this.ctx.rect(mo.x, mo.y, mo.width, mo.height);
+        this.ctx.stroke();
+
         if (mo.otherDirection) { //.....................................prüft ob sich "otherDirection" verändert hat
             mo.x = mo.x * -1; //........................................verändert die x-Position ins Gegenteilige
             this.ctx.restore(); //......................................macht Änderung von "scale" und "translate" wieder rückgängig bzw. stellt den "save"-Zustand wieder her
         }
+
+        
     }
 }
