@@ -82,12 +82,11 @@ class World {
             this.ctx.scale(-1, 1); //...................................spiegelt das Bild um die x-Achse
             mo.x = mo.x * -1; //........................................verändert die x-Position ins Gegenteilige
         }
-        this.ctx.drawImage(mo.img, mo.x, mo.y, mo.width, mo.height);
-        this.ctx.beginPath();
-        this.ctx.lineWidth = '3';
-        this.ctx.strokeStyle = 'blue';
-        this.ctx.rect(mo.x, mo.y, mo.width, mo.height);
-        this.ctx.stroke();
+
+        mo.draw(this.ctx);
+        mo.drawFrame(this.ctx);
+        
+        
 
         if (mo.otherDirection) { //.....................................prüft ob sich "otherDirection" verändert hat
             mo.x = mo.x * -1; //........................................verändert die x-Position ins Gegenteilige

@@ -68,7 +68,7 @@ class MovableObject {
         }
     }
 
-    playJumpSoundOfCharacter(){
+    playJumpSoundOfCharacter() {
         this.jump_sound.play();
     }
 
@@ -86,5 +86,19 @@ class MovableObject {
 
     jump() {
         this.speedY = 25;
+    }
+
+    draw(ctx) {
+        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
+    }
+    drawFrame(ctx) {
+        if (this instanceof Character || this instanceof Chicken) {
+            ctx.beginPath();
+            ctx.lineWidth = '3';
+            ctx.strokeStyle = 'blue';
+            ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.stroke();
+        }
+
     }
 }
