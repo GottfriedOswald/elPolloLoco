@@ -1,6 +1,7 @@
 class World {
 
     // Variablen
+    level = level1;
     canvasToClear;
     ctx;
     keyboardInWorld;
@@ -25,20 +26,30 @@ class World {
         this.keyboardInWorld = keyboard;
         this.draw();
         this.setWorld();
+        this.checkCollisions();
     }
 
     /**
-     *  diese Funktion übergibt der in der Characterklasse erstellten world-variablen den Inhalt dieser Worldklasse.
+     * this function transfers the content of this world class to the world variables created in the character class.
+     *  (diese Funktion übergibt der in der Characterklasse erstellten world-variablen den Inhalt dieser Worldklasse.)
      * @param {} - no parameters are passed
      */
     setWorld() {
         this.character.world = this;
     }
 
-
+    checkCollisions(){
+        setInterval(() => {
+            this.level.enemies.forEach((enemy) => {
+                if(this.character.isColliding(enemy)){
+                    console.log('Collision with Character ', enemy);
+                }
+            });
+        }, 1000);
+    }
 
     /**
-     *  diese Funktion übergibt die Objekte an canvas
+     *  this function transfers the objects to canvas
      * @param {} - no parameters are passed
      */
     draw() {
@@ -47,7 +58,6 @@ class World {
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.landscapes);
         this.addObjectsToMap(this.clouds);
-
         this.addToMap(this.character);
         this.addObjectsToMap(this.enemies);
 
@@ -62,7 +72,7 @@ class World {
     }
 
     /**
-     *  diese Funktion übergibt Objekte aus einem Array weiter an die addToMap-Funktion
+     *  this function transfers objects from an array to the addToMap function
      * @param {*} objects 
      */
     addObjectsToMap(objects) {
@@ -72,27 +82,41 @@ class World {
     };
 
     /**
-     * diese Funktion übergibt Objekte an die Context-Variable die diese dann in canvas positioniert
+     * this function transfers objects to the context variable which then positions them in canvas
      * @param {*} moveableObject 
      */
     addToMap(mo) {
         if (mo.otherDirection) { //.....................................prüft ob sich "otherDirection" verändert hat
-            this.ctx.save(); //.........................................speichert den aktuellen Zustand
-            this.ctx.translate(mo.width, 0); //.........................verschiebt das Bild um seine eigene Breite
-            this.ctx.scale(-1, 1); //...................................spiegelt das Bild um die x-Achse
-            mo.x = mo.x * -1; //........................................verändert die x-Position ins Gegenteilige
+            this.flipImage(mo);
         }
 
         mo.draw(this.ctx);
         mo.drawFrame(this.ctx);
-        
-        
 
         if (mo.otherDirection) { //.....................................prüft ob sich "otherDirection" verändert hat
-            mo.x = mo.x * -1; //........................................verändert die x-Position ins Gegenteilige
-            this.ctx.restore(); //......................................macht Änderung von "scale" und "translate" wieder rückgängig bzw. stellt den "save"-Zustand wieder her
+            this.flipImageBack(mo);
         }
-
-        
     }
+
+    /**
+     * this function mirrors the object when the direction of travel is changed
+     * @param {object} mo 
+     */
+    flipImage(mo) {
+        this.ctx.save(); //.........................................speichert den aktuellen Zustand
+        this.ctx.translate(mo.width, 0); //.........................verschiebt das Bild um seine eigene Breite
+        this.ctx.scale(-1, 1); //...................................spiegelt das Bild um die x-Achse
+        mo.x = mo.x * -1; //........................................verändert die x-Position ins Gegenteilige
+    }
+
+    /**
+     * this function mirrors the object back when the direction of travel is changed
+     * @param {object} mo 
+     */
+    flipImageBack(mo){
+        mo.x = mo.x * -1; //........................................verändert die x-Position ins Gegenteilige
+        this.ctx.restore(); //......................................macht Änderung von "scale" und "translate" wieder rückgängig bzw. stellt den "save"-Zustand wieder her
+    }
+
+    
 }

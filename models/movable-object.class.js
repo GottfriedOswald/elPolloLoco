@@ -10,6 +10,9 @@ class MovableObject {
     speedY = 0; // Variable für Fallgeschwindigkeit
     acceleration = 1.2; // Variable für Beschleunigung
 
+    /**
+     * this function simulates gravity for the object
+     */
     applyGravity() {
         setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
@@ -99,6 +102,12 @@ class MovableObject {
             ctx.rect(this.x, this.y, this.width, this.height);
             ctx.stroke();
         }
-
+    }
+    
+    isColliding(mo){
+        return this.x + this.width > mo.x &&
+            this.y + this.height > mo.y &&
+            this.x < mo.x &&
+            this.y < mo.y + mo.height
     }
 }

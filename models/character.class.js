@@ -32,6 +32,12 @@ class Character extends MovableObject {
         'img/2.Secuencias_Personaje-Pepe-corrección/3.Secuencia_salto/J-40.png'
     ];
 
+    IMAGES_HURT = [
+        'img/2.Secuencias_Personaje-Pepe-corrección/4.Herido/H-41.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/4.Herido/H-42.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/4.Herido/H-43.png'
+    ]
+
 
 
 
@@ -64,10 +70,10 @@ class Character extends MovableObject {
             }
 
             if (this.world.keyboardInWorld.UP && !this.isAboveGround()) {
-                this.jump();     
-                this.playJumpSoundOfCharacter()          
+                this.jump();
+                this.playJumpSoundOfCharacter()
             }
-            
+
             //....variable "camera_x" wird mit dem Character verbunden
             //....die "100" bewirkt das Pepe nicht zu sehr an den linken Rand gesetzt wird 
             this.world.camera_x = -this.x + 100;
@@ -77,12 +83,12 @@ class Character extends MovableObject {
 
             if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
-            }else{
+            } else {
 
-            if (this.world.keyboardInWorld.RIGHT || this.world.keyboardInWorld.LEFT) {
-                this.playAnimation(this.IMAGES_WALKING); // ich übergebe die Bilder der Lauf-Animation an die Funktion
+                if (this.world.keyboardInWorld.RIGHT || this.world.keyboardInWorld.LEFT) {
+                    this.playAnimation(this.IMAGES_WALKING); // ich übergebe die Bilder der Lauf-Animation an die Funktion
+                }
             }
-        }
         }, this.intervalTime);
     }
 }
