@@ -38,14 +38,20 @@ class World {
         this.character.world = this;
     }
 
+    /**
+     * (E) this function checks whether my character object collides with one of the enemies objects
+     * 
+     * (D) diese Funktion prüft ob mein Character-Objekt mit einem der enemies.Objekten kollidiert
+     */
     checkCollisions(){
         setInterval(() => {
             this.level.enemies.forEach((enemy) => {
                 if(this.character.isColliding(enemy)){
-                    console.log('Collision with Character ', enemy);
+                    this.character.hit();
+                    console.log('you get hurt by ', enemy , 'your energy: ',this.character.energy);
                 }
             });
-        }, 1000);
+        }, 200);
     }
 
     /**

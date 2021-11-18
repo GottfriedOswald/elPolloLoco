@@ -36,6 +36,16 @@ class Character extends MovableObject {
         'img/2.Secuencias_Personaje-Pepe-corrección/4.Herido/H-41.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/4.Herido/H-42.png',
         'img/2.Secuencias_Personaje-Pepe-corrección/4.Herido/H-43.png'
+    ];
+
+    IMAGES_DEAD = [
+        'img/2.Secuencias_Personaje-Pepe-corrección/5.Muerte/D-51.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/5.Muerte/D-52.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/5.Muerte/D-53.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/5.Muerte/D-54.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/5.Muerte/D-55.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/5.Muerte/D-56.png',
+        'img/2.Secuencias_Personaje-Pepe-corrección/5.Muerte/D-57.png'
     ]
 
 
@@ -45,6 +55,8 @@ class Character extends MovableObject {
         super().loadImage(imgUrl);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
+        this.loadImages(this.IMAGES_HURT);
+        this.loadImages(this.IMAGES_DEAD);
         this.height = height;
         this.width = width;
         this.x = x;
@@ -54,6 +66,9 @@ class Character extends MovableObject {
         this.applyGravity();
     }
 
+    /**
+     * (E) animates walking when moving
+     */
     walkanimation() {
 
         setInterval(() => {
@@ -71,7 +86,7 @@ class Character extends MovableObject {
 
             if (this.world.keyboardInWorld.UP && !this.isAboveGround()) {
                 this.jump();
-                this.playJumpSoundOfCharacter()
+                this.playJumpSoundOfCharacter();
             }
 
             //....variable "camera_x" wird mit dem Character verbunden
@@ -81,10 +96,13 @@ class Character extends MovableObject {
 
         setInterval(() => {
 
-            if (this.isAboveGround()) {
+            if (this.isDead()) {
+                this.playAnimation(this.IMAGES_DEAD);
+            }else if (this.isHurt()) {
+                this.playAnimation(this.IMAGES_HURT);
+            } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else {
-
                 if (this.world.keyboardInWorld.RIGHT || this.world.keyboardInWorld.LEFT) {
                     this.playAnimation(this.IMAGES_WALKING); // ich übergebe die Bilder der Lauf-Animation an die Funktion
                 }

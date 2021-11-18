@@ -6,9 +6,11 @@ class MovableObject {
     img;
     imageCache = {};
     currentImage = 0;
-    otherDirection = false; // Variable zum spiegeln des Characters
-    speedY = 0; // Variable für Fallgeschwindigkeit
-    acceleration = 1.2; // Variable für Beschleunigung
+    otherDirection = false; //...........Variable zum spiegeln des Characters
+    speedY = 0; //.......................Variable für Fallgeschwindigkeit
+    acceleration = 1.2; //...............Variable für Beschleunigung
+    energy = 100;
+    lastHit = 0;
 
     /**
      * this function simulates gravity for the object
@@ -16,7 +18,7 @@ class MovableObject {
     applyGravity() {
         setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
-                this.y = this.y - this.speedY; //..............speedY wird von y abgezogen, aber da der Anfangswert 0 ist wird nichts abgezogen
+                this.y = this.y - this.speedY; //..................speedY wird von y abgezogen, aber da der Anfangswert 0 ist wird nichts abgezogen
                 this.speedY = this.speedY - this.acceleration; //..hier wird speedY negiert und somit wird im nächsten Durchlauf speedY zu y dazu gezählt da Minus minus Minus Plus gibt (-) - (-) = (+)
             }
         }, 1000 / 60)
@@ -56,10 +58,19 @@ class MovableObject {
         this.otherDirection = true;
     }
 
+    /**
+     * (E) this function positions the object all the way to the right
+     * as soon as you leave the playing field on the left
+     * 
+     * (D) diese Funktion positioniert das Objekt wieder ganz nach rechts,
+     * sobald das Spielfeld auf der linken Seite verlassen wird
+     * 
+     * @param {point number} speed 
+     */
     ObjectsMoveLeft(speed) {
         setInterval(() => {
-            if (this.x < (0 - this.width)) {
-                this.x = 780 + this.width;
+            if (this.x < (-780 - this.width)) {
+                this.x = 2700 + this.width;
             }
             this.x -= speed;
         }, 1000 / 60);
@@ -94,6 +105,14 @@ class MovableObject {
     draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
+
+    /**
+     * (D) zeichnet einen Rahmen um die Objekte aus der Klasse Character und Chicken
+     * 
+     * (E) draws a frame around the objects from the Character and Chicken classes
+     * 
+     * @param {object} ctx 
+     */
     drawFrame(ctx) {
         if (this instanceof Character || this instanceof Chicken) {
             ctx.beginPath();
@@ -104,10 +123,42 @@ class MovableObject {
         }
     }
     
+    /**
+     * (D) prüft ob sich Koordinatenwerte der Objektrahmen überschneiden und gibt entsprechend einen Wahrheitswert zurück
+     * 
+     * (E) checks whether coordinate values of the object frames overlap and returns a boolean accordingly
+     * 
+     * @param {object} mo 
+     * @returns boolean
+     */
     isColliding(mo){
         return this.x + this.width > mo.x &&
             this.y + this.height > mo.y &&
             this.x < mo.x &&
             this.y < mo.y + mo.height
+    }
+
+    /**
+     * (E) reduces the energy points in the event of a collision and saves the time of the last collision
+     * 
+     * (D) verringert bei Kollision die Energiepunkte und speichert den Zeitpunkt der letzten Kollision
+     */
+    hit(){
+        this.energy -= 3;
+        if (this.energy < 0) {
+            this.energy = 0;
+        } else {
+            this.lastHit = new Date().getTime();
+        }
+    }
+
+    isHurt(){
+        let timepassed = new Date().getTime() - this.lastHit;
+        timepassed /= 1000;
+        return timepassed < 1;
+    }
+
+    isDead(){
+        return this.energy == 0;
     }
 }
