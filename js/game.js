@@ -48,3 +48,9 @@ window.addEventListener('keyup', e => {
         keyboard.SPACE = false;
     }
 })
+
+function startGame() {
+    document.getElementById('startImage').classList.add('d-none');
+    document.getElementById('canvas').classList.remove('d-none');
+    init();
+}

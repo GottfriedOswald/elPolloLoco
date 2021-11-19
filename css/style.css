@@ -1,4 +1,21 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
 body {
+    margin: 0;
+    background-image: url(../img/5.Fondo/2.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: auto;
+    height: 100vh;
+}
+
+.main{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -6,5 +23,45 @@ body {
 
 canvas {
     background-color: rgba(0, 0, 0, 0.555);
+    border-radius: 16px;
 }
 
+.canvasFrame{
+    width: 850px;
+    height: 600px;
+    background-color: rgb(255, 255, 250);
+    border: black 1px solid;
+    border-radius: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.startImage{
+    width: 780px;
+    height: 480px;
+    border-radius: 16px;
+}
+
+.startButton{
+    margin-top: 16px;
+    width: 150px;
+    height: 80px;
+    border-radius: 8px;
+}
+
+.infoblock{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.directionImage{
+    height: 80px;
+}
+
+.d-none{
+    display: none;
+}

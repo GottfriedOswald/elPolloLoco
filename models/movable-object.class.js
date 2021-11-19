@@ -144,7 +144,7 @@ class MovableObject {
      * (D) verringert bei Kollision die Energiepunkte und speichert den Zeitpunkt der letzten Kollision
      */
     hit(){
-        this.energy -= 3;
+        this.energy -= 0.002;
         if (this.energy < 0) {
             this.energy = 0;
         } else {
