@@ -1,11 +1,6 @@
-class MovableObject {
+class MovableObject extends DrawableObject {
 
-    x;
-    y;
-    ground = 460;
-    img;
-    imageCache = {};
-    currentImage = 0;
+    
     otherDirection = false; //...........Variable zum spiegeln des Characters
     speedY = 0; //.......................Variable für Fallgeschwindigkeit
     acceleration = 1.2; //...............Variable für Beschleunigung
@@ -30,19 +25,6 @@ class MovableObject {
      */
     isAboveGround() {
         return this.y < (this.ground - this.height);
-    }
-
-    loadImage(path) {
-        this.img = new Image();
-        this.img.src = path;
-    }
-
-    loadImages(arr) {
-        arr.forEach((path) => {
-            let img = new Image();
-            img.src = path;
-            this.imageCache[path] = img;
-        });
     }
 
     /**
@@ -102,9 +84,7 @@ class MovableObject {
         this.speedY = 25;
     }
 
-    draw(ctx) {
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-    }
+ 
 
     /**
      * (D) zeichnet einen Rahmen um die Objekte aus der Klasse Character und Chicken
