@@ -57,4 +57,21 @@ class DrawableObject{
     draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
+    
+    /**
+     * (D) zeichnet einen Rahmen um die Objekte aus der Klasse Character und Chicken
+     * 
+     * (E) draws a frame around the objects from the Character and Chicken classes
+     * 
+     * @param {object} ctx 
+     */
+     drawFrame(ctx) {
+        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss) {
+            ctx.beginPath();
+            ctx.lineWidth = '3';
+            ctx.strokeStyle = 'blue';
+            ctx.rect(this.x, this.y, this.width, this.height);
+            ctx.stroke();
+        }
+    }
 }

@@ -11,7 +11,7 @@ class World {
     // Objekte
     // wird ein Objekt der Klasse World erstellt, so werden auch weitere Objekte der der unten aufgeführten Klassen erstellt.
     character = new Character('img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-21.png', 80, 410, 240, 122);
-
+    statusBar = new StatusBar();
     enemies = level1.enemies;
 
     endboss = level1.endboss;
@@ -64,6 +64,7 @@ class World {
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.landscapes);
         this.addObjectsToMap(this.clouds);
+        this.addToMap(this.statusBar);
         this.addToMap(this.character);
         this.addObjectsToMap(this.enemies);
 
