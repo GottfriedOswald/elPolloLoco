@@ -36,6 +36,7 @@ class StatusBar extends DrawableObject {
         }
     }
  */
+    world;
     percentage = 100;
     height = 0;
     width = 0;
@@ -49,16 +50,27 @@ class StatusBar extends DrawableObject {
         'img/7.Marcadores/Barra/Marcador vida/verde/100_.png'
     ];
 
-    constructor() {
+    COIN_IMAGES = [
+        'img/7.Marcadores/Barra/Marcador moneda/Verde/0_.png',
+        'img/7.Marcadores/Barra/Marcador moneda/Verde/20_.png',
+        'img/7.Marcadores/Barra/Marcador moneda/Verde/40_.png',
+        'img/7.Marcadores/Barra/Marcador moneda/Verde/60_.png',
+        'img/7.Marcadores/Barra/Marcador moneda/Verde/80_.png',
+        'img/7.Marcadores/Barra/Marcador moneda/Verde/100_.png'
+    ];
+
+
+
+    constructor(x, y, height, width, percent) {
         super();
         this.loadImages(this.HEALTH_IMAGES);
-        
+        this.loadImages(this.COIN_IMAGES);
 
-        this.x = 10;
-        this.y = 10;
-        this.height = 50;
-        this.width = 120;
-        this.setPercentage(100);
+        this.x = x;
+        this.y = y;
+        this.height = height;
+        this.width = width;
+        this.setPercentage(percent);
     }
 
     setPercentage(percentage) {
@@ -82,4 +94,6 @@ class StatusBar extends DrawableObject {
             return 0;
         }
     }
+
+    
 }

@@ -11,7 +11,8 @@ class World {
     // Objekte
     // wird ein Objekt der Klasse World erstellt, so werden auch weitere Objekte der der unten aufgeführten Klassen erstellt.
     character = new Character('img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-21.png', 80, 410, 240, 122);
-    statusBar = new StatusBar();
+    healthBar = new StatusBar(10,10,50,150,100);
+    coinBar = new StatusBar(10,65,50,150,0);
     enemies = level1.enemies;
 
     endboss = level1.endboss;
@@ -30,12 +31,16 @@ class World {
     }
 
     /**
-     * this function transfers the content of this world class to the world variables created in the character class.
-     *  (diese Funktion übergibt der in der Characterklasse erstellten world-variablen den Inhalt dieser Worldklasse.)
+     * (E)
+     *  this function transfers the content of this world class to the world variables created in the character class.
+     * 
+     * (D)
+     *  diese Funktion übergibt der in der Characterklasse erstellten world-variablen den Inhalt dieser Worldklasse.
      * @param {} - no parameters are passed
      */
     setWorld() {
         this.character.world = this;
+        this.healthBar.world = this;
     }
 
     /**
@@ -60,14 +65,18 @@ class World {
      */
     draw() {
         this.ctx.clearRect(0, 0, this.canvasToClear.width, this.canvasToClear.height); // canvas-Fläche wird geleert
-
+        
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.landscapes);
         this.addObjectsToMap(this.clouds);
-        this.addToMap(this.statusBar);
+        this.ctx.translate(-this.camera_x, 0);
+        
+        this.addToMap(this.healthBar);
+       this.addToMap(this.coinBar);
+
+        this.ctx.translate(this.camera_x, 0);
         this.addToMap(this.character);
         this.addObjectsToMap(this.enemies);
-
         this.ctx.translate(-this.camera_x, 0);
 
         // draw() wird immer wieder aufgerufen
@@ -90,6 +99,8 @@ class World {
 
     /**
      * this function transfers objects to the context variable which then positions them in canvas
+     * 
+     * Diese Funktion übergibt Objekte an die Kontextvariable, die sie dann im Canvas positioniert
      * @param {*} moveableObject 
      */
     addToMap(mo) {
