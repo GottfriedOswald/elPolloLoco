@@ -131,9 +131,9 @@ class MovableObject extends DrawableObject {
      * @returns boolean
      */
     isColliding(mo){
-        return this.x + this.width > mo.x &&
+        return this.x + (this.width-30) > mo.x &&
             this.y + this.height > mo.y &&
-            this.x < mo.x &&
+            this.x-40 < mo.x &&
             this.y < mo.y + mo.height
     }
 
@@ -143,7 +143,7 @@ class MovableObject extends DrawableObject {
      * (D) verringert bei Kollision die Energiepunkte und speichert den Zeitpunkt der letzten Kollision
      */
     hit(){
-        this.energy -= 0.002;
+        this.energy -= 2;
         if (this.energy < 0) {
             this.energy = 0;
         } else {
@@ -154,7 +154,7 @@ class MovableObject extends DrawableObject {
     isHurt(){
         let timepassed = new Date().getTime() - this.lastHit;
         timepassed /= 1000;
-        return timepassed < 1;
+        return timepassed < 0.5;
     }
 
     isDead(){

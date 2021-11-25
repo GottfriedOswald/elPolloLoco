@@ -11,14 +11,15 @@ class World {
     // Objekte
     // wird ein Objekt der Klasse World erstellt, so werden auch weitere Objekte der der unten aufgeführten Klassen erstellt.
     character = new Character('img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-21.png', 80, 410, 240, 122);
-    healthBar = new StatusBar(10,10,50,150,100);
-    coinBar = new StatusBar(10,65,50,150,0);
-    enemies = level1.enemies;
+    
+    healthBar = new HealthBar(10, 0, 40, 160, 100);
+    coinBar = new CoinBar(10, 30, 40, 160, 0);
+    bottleBar = new BottleBar(10, 60, 40, 160, 0);
 
+    enemies = level1.enemies;
     endboss = level1.endboss;
 
     clouds = level1.clouds;
-
     landscapes = level1.landscapes;
 
     constructor(canvas, keyboard) {
@@ -40,7 +41,6 @@ class World {
      */
     setWorld() {
         this.character.world = this;
-        this.healthBar.world = this;
     }
 
     /**
@@ -48,12 +48,13 @@ class World {
      * 
      * (D) diese Funktion prüft ob mein Character-Objekt mit einem der enemies.Objekten kollidiert
      */
-    checkCollisions(){
+    checkCollisions() {
         setInterval(() => {
             this.level.enemies.forEach((enemy) => {
-                if(this.character.isColliding(enemy)){
+                if (this.character.isColliding(enemy)) {
                     this.character.hit();
-                    console.log('you get hurt by ', enemy , 'your energy: ',this.character.energy);
+                    console.log('you get hurt by ', enemy, 'your energy: ', this.character.energy);
+                    this.healthBar.setPercentage(this.character.energy);
                 }
             });
         }, 200);
@@ -65,14 +66,15 @@ class World {
      */
     draw() {
         this.ctx.clearRect(0, 0, this.canvasToClear.width, this.canvasToClear.height); // canvas-Fläche wird geleert
-        
+
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.landscapes);
         this.addObjectsToMap(this.clouds);
         this.ctx.translate(-this.camera_x, 0);
-        
+
         this.addToMap(this.healthBar);
-       this.addToMap(this.coinBar);
+        this.addToMap(this.coinBar);
+        this.addToMap(this.bottleBar);
 
         this.ctx.translate(this.camera_x, 0);
         this.addToMap(this.character);
@@ -131,10 +133,10 @@ class World {
      * this function mirrors the object back when the direction of travel is changed
      * @param {object} mo 
      */
-    flipImageBack(mo){
+    flipImageBack(mo) {
         mo.x = mo.x * -1; //........................................verändert die x-Position ins Gegenteilige
         this.ctx.restore(); //......................................macht Änderung von "scale" und "translate" wieder rückgängig bzw. stellt den "save"-Zustand wieder her
     }
 
-    
+
 }
