@@ -1,5 +1,5 @@
-class MovableObject extends DrawableObject {
-/**
+class ThrowableObject extends MovableObject{
+    /**
     geerbte Variablen und Funktionen aus drawable-objekt.class.js
    
     x;
@@ -35,17 +35,15 @@ class MovableObject extends DrawableObject {
             ctx.stroke();
         }
     }
- */
-    
-    otherDirection = false; //...........Variable zum spiegeln des Characters
-    speedY = 0; //.......................Variable für Fallgeschwindigkeit
-    acceleration = 1.2; //...............Variable für Beschleunigung
+
+    geerbte Variablen und Funktionen aus movable-objekt.class.js
+
+    otherDirection = false;...........Variable zum spiegeln des Characters
+    speedY = 0;.......................Variable für Fallgeschwindigkeit
+    acceleration = 1.2;...............Variable für Beschleunigung
     energy = 100;
     lastHit = 0;
 
-    /**
-     * this function simulates gravity for the object
-     */
     applyGravity() {
         setInterval(() => {
             if (this.isAboveGround() || this.speedY > 0) {
@@ -55,17 +53,10 @@ class MovableObject extends DrawableObject {
         }, 1000 / 60)
     }
 
-    /**
-     * this function checks whether Pepe is floating in the air
-     * @returns Integer, Koordinate in Y
-     */
     isAboveGround() {
         return this.y < (this.ground - this.height);
     }
 
-    /**
-     * Character move right while right arrow key is pressed
-     */
     moveRight() {
         this.x += this.speed;
         this.otherDirection = false;
@@ -76,15 +67,6 @@ class MovableObject extends DrawableObject {
         this.otherDirection = true;
     }
 
-    /**
-     * (E) this function positions the object all the way to the right
-     * as soon as you leave the playing field on the left
-     * 
-     * (D) diese Funktion positioniert das Objekt wieder ganz nach rechts,
-     * sobald das Spielfeld auf der linken Seite verlassen wird
-     * 
-     * @param {point number} speed 
-     */
     ObjectsMoveLeft(speed) {
         setInterval(() => {
             if (this.x < (-780 - this.width)) {
@@ -104,11 +86,6 @@ class MovableObject extends DrawableObject {
         this.jump_sound.play();
     }
 
-    /**
-     * this function loads a sequence of images
-     * 
-     * @param {String} imagesForAnimation [path for image]
-     */
     playAnimation(imagesForAnimation) {
         let i = this.currentImage % imagesForAnimation.length;
         let path = imagesForAnimation[i];
@@ -120,28 +97,13 @@ class MovableObject extends DrawableObject {
         this.speedY = 25;
     }
 
- 
-    
-    /**
-     * (D) prüft ob sich Koordinatenwerte der Objektrahmen überschneiden und gibt entsprechend einen Wahrheitswert zurück
-     * 
-     * (E) checks whether coordinate values of the object frames overlap and returns a boolean accordingly
-     * 
-     * @param {object} mo 
-     * @returns boolean
-     */
     isColliding(mo){
-        return this.x + (this.width-30) > mo.x &&
+        return this.x + this.width > mo.x &&
             this.y + this.height > mo.y &&
-            this.x-40 < mo.x &&
+            this.x < mo.x &&
             this.y < mo.y + mo.height
     }
 
-    /**
-     * (E) reduces the energy points in the event of a collision and saves the time of the last collision
-     * 
-     * (D) verringert bei Kollision die Energiepunkte und speichert den Zeitpunkt der letzten Kollision
-     */
     hit(){
         this.energy -= 0.002;
         if (this.energy < 0) {
@@ -150,15 +112,17 @@ class MovableObject extends DrawableObject {
             this.lastHit = new Date().getTime();
         }
     }
- 
 
     isHurt(){
         let timepassed = new Date().getTime() - this.lastHit;
         timepassed /= 1000;
-        return timepassed < 0.5;
+        return timepassed < 1;
     }
 
     isDead(){
         return this.energy == 0;
     }
+ */
+
+    
 }

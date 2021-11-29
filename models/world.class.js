@@ -67,22 +67,26 @@ class World {
     draw() {
         this.ctx.clearRect(0, 0, this.canvasToClear.width, this.canvasToClear.height); // canvas-Fläche wird geleert
 
+        // "bewegliche" Positionierung von Objekten durch die "ctx.translate"-Funktion
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.landscapes);
         this.addObjectsToMap(this.clouds);
         this.ctx.translate(-this.camera_x, 0);
 
+        // fixe Positionierung von Objekten
         this.addToMap(this.healthBar);
         this.addToMap(this.coinBar);
         this.addToMap(this.bottleBar);
 
+        // "bewegliche" Positionierung von Objekten durch die "ctx.translate"-Funktion
         this.ctx.translate(this.camera_x, 0);
         this.addToMap(this.character);
         this.addObjectsToMap(this.enemies);
         this.ctx.translate(-this.camera_x, 0);
 
         // draw() wird immer wieder aufgerufen
-        // "this" muss in eine neu erstellte Variable ("self") kopiert werden da in der anonymen Funktion der "requestAnimationFrame"-Funktion das "this" nicht angenommen wird
+        // "this" muss in eine neu erstellte Variable ("self") kopiert werden,
+        // da in der anonymen Funktion der "requestAnimationFrame"-Funktion das "this" nicht angenommen wird
         let self = this;
         requestAnimationFrame(function () {
             self.draw();
