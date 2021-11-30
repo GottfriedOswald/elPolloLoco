@@ -11,6 +11,7 @@ class World {
     // Objekte
     // wird ein Objekt der Klasse World erstellt, so werden auch weitere Objekte der der unten aufgeführten Klassen erstellt.
     character = new Character('img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-21.png', 80, 410, 240, 122);
+    throwingBottle = new ThrowingBottle('img/6.botella/Rotación/Mesa de trabajo 1 copia 3.png', 250, 300, 80, 80);
     
     healthBar = new HealthBar(10, 0, 40, 160, 100);
     coinBar = new CoinBar(10, 30, 40, 160, 0);
@@ -81,6 +82,7 @@ class World {
         // "bewegliche" Positionierung von Objekten durch die "ctx.translate"-Funktion
         this.ctx.translate(this.camera_x, 0);
         this.addToMap(this.character);
+        this.addToMap(this.throwingBottle);
         this.addObjectsToMap(this.enemies);
         this.ctx.translate(-this.camera_x, 0);
 

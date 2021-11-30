@@ -98,9 +98,9 @@ class ThrowableObject extends MovableObject{
     }
 
     isColliding(mo){
-        return this.x + this.width > mo.x &&
+        return this.x + (this.width-30) > mo.x &&
             this.y + this.height > mo.y &&
-            this.x < mo.x &&
+            this.x-40 < mo.x &&
             this.y < mo.y + mo.height
     }
 
@@ -123,6 +123,14 @@ class ThrowableObject extends MovableObject{
         return this.energy == 0;
     }
  */
+  
+    speedX = 0;
 
-    
+    // throw(){
+    //     setInterval(() => {
+    //         if () {
+                
+    //         }
+    //     }, 1000 / 60);
+    // }
 }
