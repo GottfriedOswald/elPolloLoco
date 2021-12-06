@@ -11,17 +11,21 @@ class World {
     // Objekte
     // wird ein Objekt der Klasse World erstellt, so werden auch weitere Objekte der der unten aufgeführten Klassen erstellt.
     character = new Character('img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-21.png', 80, 460, 240, 122);
-    throwingBottle = [new ThrowingBottle('img/7.Marcadores/Icono/Botella.png',this.character.x+this.character.width-30, this.character.y+this.character.height/2, 32, 31)];
+    throwingBottle = [];
     
     healthBar = new HealthBar(10, 0, 40, 160, 100);
     coinBar = new CoinBar(10, 30, 40, 160, 0);
     bottleBar = new BottleBar(10, 60, 40, 160, 0);
 
+   
     enemies = level1.enemies;
     endboss = level1.endboss;
 
     clouds = level1.clouds;
     landscapes = level1.landscapes;
+
+    bottles = level1.bottles;
+
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -42,7 +46,19 @@ class World {
     run(){
         setInterval(() => {
             this.checkCollisions();
+            this.checkThrowingBottle();
         }, 200);
+    }
+
+    /**
+     * prüft ob Leertaste gedrückt wurde
+     * wenn ja, dann wird Flasche erstellt und in ein Array verschoben
+     */
+    checkThrowingBottle(){
+        if (this.keyboardInWorld.D) {
+            let bottle = new ThrowingBottle('img/7.Marcadores/Icono/Botella.png',(this.character.x)+(this.character.width-30), (this.character.y)+(this.character.height/2), 32, 31);
+            this.throwingBottle.push(bottle);
+        }
     }
 
     /**
@@ -92,6 +108,7 @@ class World {
 
         // "bewegliche" Positionierung von Objekten durch die "ctx.translate"-Funktion
         this.ctx.translate(this.camera_x, 0);
+        this.addObjectsToMap(this.bottles);
         this.addToMap(this.character);
         this.addObjectsToMap(this.throwingBottle);
         this.addObjectsToMap(this.enemies);

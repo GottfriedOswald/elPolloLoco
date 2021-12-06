@@ -1,1 +1,11 @@
 git@github.com:GottfriedOswald/elPolloLoco.git
+
+to do:
+-Flaschen mit zufälliger Positionierung
+ verteilen
+
+-bestimmte Anzahl von Flaschen soll
+ eingesammelt werden können
+
+ -Endboss soll Schaden nehmen
+  wenn mit Flasche getroffen

@@ -1,5 +1,5 @@
 class MovableObject extends DrawableObject {
-    
+
     otherDirection = false; //...........Variable zum spiegeln des Characters
     speedY = 0; //.......................Variable für Fallgeschwindigkeit
     acceleration = 1.3; //...............Variable für Beschleunigung
@@ -23,7 +23,11 @@ class MovableObject extends DrawableObject {
      * @returns Integer, Koordinate in Y
      */
     isAboveGround() {
-        return this.y < (this.ground - this.height);
+        if (this instanceof ThrowingBottle) {
+            return true;
+        } else {
+            return this.y < (this.ground - this.height);
+        }
     }
 
     /**
@@ -83,8 +87,6 @@ class MovableObject extends DrawableObject {
         this.speedY = 25;
     }
 
- 
-    
     /**
      * (D) prüft ob sich Koordinatenwerte der Objektrahmen überschneiden und gibt entsprechend einen Wahrheitswert zurück
      * 
@@ -93,10 +95,10 @@ class MovableObject extends DrawableObject {
      * @param {object} mo 
      * @returns boolean
      */
-    isColliding(mo){
-        return this.x + (this.width-30) > mo.x &&
+    isColliding(mo) {
+        return this.x + (this.width - 30) > mo.x &&
             this.y + this.height > mo.y &&
-            this.x-40 < mo.x &&
+            this.x - 40 < mo.x &&
             this.y < mo.y + mo.height
     }
 
@@ -105,7 +107,7 @@ class MovableObject extends DrawableObject {
      * 
      * (D) verringert bei Kollision die Energiepunkte und speichert den Zeitpunkt der letzten Kollision
      */
-    hit(){
+    hit() {
         this.energy -= 0.002;
         if (this.energy < 0) {
             this.energy = 0;
@@ -113,15 +115,15 @@ class MovableObject extends DrawableObject {
             this.lastHit = new Date().getTime();
         }
     }
- 
 
-    isHurt(){
+
+    isHurt() {
         let timepassed = new Date().getTime() - this.lastHit;
         timepassed /= 1000;
         return timepassed < 0.5;
     }
 
-    isDead(){
+    isDead() {
         return this.energy == 0;
     }
 }
