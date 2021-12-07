@@ -10,4 +10,5 @@ class Bottle extends ThrowableObject{
         this.height = height;
         this.width = width;
     }
+
 }

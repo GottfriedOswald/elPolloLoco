@@ -56,7 +56,7 @@ class World {
      */
     checkThrowingBottle(){
         if (this.keyboardInWorld.D) {
-            let bottle = new ThrowingBottle('img/7.Marcadores/Icono/Botella.png',(this.character.x)+(this.character.width-30), (this.character.y)+(this.character.height/2), 32, 31);
+            let bottle = new ThrowingBottle('img/7.Marcadores/Icono/Botella.png',(this.character.x)+(this.character.width-30), (this.character.y)+(this.character.height/2), 52, 51);
             this.throwingBottle.push(bottle);
         }
     }
