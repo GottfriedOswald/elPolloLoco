@@ -12,12 +12,13 @@ class World {
     // wird ein Objekt der Klasse World erstellt, so werden auch weitere Objekte der der unten aufgeführten Klassen erstellt.
     character = new Character('img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-21.png', 80, 460, 240, 122);
     throwingBottle = [];
-    
+    collectedBottles = 0; // Zähler für gesammelte Flaschen
+
     healthBar = new HealthBar(10, 0, 40, 160, 100);
     coinBar = new CoinBar(10, 30, 40, 160, 0);
     bottleBar = new BottleBar(10, 60, 40, 160, 0);
 
-   
+
     enemies = level1.enemies;
     endboss = level1.endboss;
 
@@ -43,7 +44,7 @@ class World {
      * (D)
      * ruft in einem Intervall verschiedene Funktionen auf
      */
-    run(){
+    run() {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowingBottle();
@@ -54,9 +55,9 @@ class World {
      * prüft ob Leertaste gedrückt wurde
      * wenn ja, dann wird Flasche erstellt und in ein Array verschoben
      */
-    checkThrowingBottle(){
+    checkThrowingBottle() {
         if (this.keyboardInWorld.D) {
-            let bottle = new ThrowingBottle('img/7.Marcadores/Icono/Botella.png',(this.character.x)+(this.character.width-30), (this.character.y)+(this.character.height/2), 52, 51);
+            let bottle = new ThrowingBottle('img/7.Marcadores/Icono/Botella.png', (this.character.x) + (this.character.width - 30), (this.character.y) + (this.character.height / 2), 52, 51);
             this.throwingBottle.push(bottle);
         }
     }
@@ -79,14 +80,29 @@ class World {
      * (D) diese Funktion prüft ob mein Character-Objekt mit einem der enemies.Objekten kollidiert
      */
     checkCollisions() {
-            this.level.enemies.forEach((enemy) => {
-                if (this.character.isColliding(enemy)) {
-                    this.character.hit();
-                    console.log('you get hurt by ', enemy, 'your energy: ', this.character.energy);
-                    this.healthBar.setPercentage(this.character.energy);
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy)) {
+                this.character.hit();
+                console.log('you get hurt by ', enemy, 'your energy: ', this.character.energy);
+                this.healthBar.setPercentage(this.character.energy);
+            }
+        });
+            // wenn Pepe mit Flasche kollidiert und Anzahl gesammelter Flaschen kleiner als 10 ist
+            // dann sammelt er Flasche ein.
+            this.bottles.forEach((botella) => {
+                if (this.character.isColliding(botella) && this.collectedBottles < 10) {
+                    this.bottles.splice(this.bottles.indexOf(botella), 1);
+                    this.collectedBottles++;
+                    console.log(this.collectedBottles + " Flasche gesammelt")
+                    // this.collect();
                 }
             });
     }
+
+    // collect(){
+    //     this.bottles.splice(this.bottles.indexOf(botella),1);
+    //     console.log("Flasche gesammelt")
+    // }
 
     /**
      *  this function transfers the objects to canvas
