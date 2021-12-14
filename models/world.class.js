@@ -52,7 +52,7 @@ class World {
     }
 
     /**
-     * prüft ob Leertaste gedrückt wurde
+     * prüft ob Taste "d" gedrückt wurde
      * wenn ja, dann wird Flasche erstellt und in ein Array verschoben
      */
     checkThrowingBottle() {
@@ -161,7 +161,7 @@ class World {
         }
 
         mo.draw(this.ctx);
-        mo.drawFrame(this.ctx);
+        // mo.drawFrame(this.ctx);
 
         if (mo.otherDirection) { //.....................................prüft ob sich "otherDirection" verändert hat
             this.flipImageBack(mo);
