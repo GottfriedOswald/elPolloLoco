@@ -56,9 +56,13 @@ class World {
      * wenn ja, dann wird Flasche erstellt und in ein Array verschoben
      */
     checkThrowingBottle() {
-        if (this.keyboardInWorld.D) {
+        if (this.keyboardInWorld.D && this.collectedBottles > 0) {
             let bottle = new ThrowingBottle('img/7.Marcadores/Icono/Botella.png', (this.character.x) + (this.character.width - 30), (this.character.y) + (this.character.height / 2), 52, 51);
             this.throwingBottle.push(bottle);
+            if (this.collectedBottles > 0) {
+                this.collectedBottles--;
+                this.bottleBar.setPercentage(this.collectedBottles * 10);
+            }
         }
     }
 
@@ -94,6 +98,7 @@ class World {
                     this.bottles.splice(this.bottles.indexOf(botella), 1);
                     this.collectedBottles++;
                     console.log(this.collectedBottles + " Flasche gesammelt")
+                    this.bottleBar.setPercentage(this.collectedBottles * 10);
                     // this.collect();
                 }
             });
