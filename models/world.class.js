@@ -35,6 +35,7 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
+
     }
 
     /**
@@ -48,6 +49,7 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowingBottle();
+            // this.check_X_PositionOfCharacter();
         }, 200);
     }
 
@@ -108,6 +110,7 @@ class World {
     //     this.bottles.splice(this.bottles.indexOf(botella),1);
     //     console.log("Flasche gesammelt")
     // }
+
 
     /**
      *  this function transfers the objects to canvas

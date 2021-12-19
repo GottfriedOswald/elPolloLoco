@@ -6,6 +6,10 @@ class MovableObject extends DrawableObject {
     energy = 100;
     lastHit = 0;
 
+    setX_PositionOfCharacter(x_PositionOfCharacter){
+        this.x_PositionOfCharacter = x_PositionOfCharacter;
+    }
+
     /**
      * this function simulates gravity for the object
      */
@@ -96,10 +100,10 @@ class MovableObject extends DrawableObject {
      * @returns boolean
      */
     isColliding(mo) {
-        return this.x + (this.width - 30) > mo.x &&
-            this.y + this.height > mo.y &&
-            this.x - 40 < mo.x &&
-            this.y + 110 < mo.y + mo.height
+        return this.x + (this.width - this.offsetRight) > mo.x + mo.offsetLeft &&
+            this.y + this.height > mo.y + mo.offsetTop &&
+            this.x + this.offsetLeft < mo.x + (mo.width - mo.offsetRight) &&
+            this.y + this.offsetTop < mo.y + (mo.height - mo.offsetBottom)
     }
 
     /**

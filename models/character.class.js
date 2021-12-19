@@ -8,6 +8,11 @@ class Character extends MovableObject {
     walking_sound = new Audio('audio/running_hard_surface.mp3');
     jump_sound = new Audio('audio/jump.mp3');
 
+    offsetRight = 30;
+    offsetLeft = 30;
+    offsetTop = 110;
+    offsetBottom = 0;
+
 
     // Array mit Bildern die in Folge das Laufen des Characters animieren
     IMAGES_WALKING = [
@@ -95,7 +100,7 @@ class Character extends MovableObject {
 
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
-            }else if (this.isHurt()) {
+            } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);

@@ -1,6 +1,6 @@
 const level1 = new Level(
     [
-        new Endboss('img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/1.Alerta/G5.png',2850, 225, 243, 209),
+        new Endboss('img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/1.Alerta/G5.png',2050, 225, 243, 209),
         new Chicken('img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/1.Ga_paso_derecho.png', (2200 + Math.random() * 500), 410, 49, 50),
         new Chicken('img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/2-Ga_centro.png', (2200 + Math.random() * 500), 410, 49, 50),
         new Chicken('img/3.Secuencias_Enemy_básico/Versión_Gallinita (estas salen por orden de la gallina gigantona)/1.Ga_paso_derecho.png', (2200 + Math.random() * 500), 410, 49, 50),
