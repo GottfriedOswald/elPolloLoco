@@ -1,5 +1,10 @@
 class ThrowingBottle extends ThrowableObject {
 
+    offsetRight = 0;
+    offsetLeft = 0;
+    offsetTop = 0;
+    offsetBottom = 0;
+
     constructor(imgUrl, x, y, height, width) {
         super().loadImage(imgUrl);
         this.height = height;

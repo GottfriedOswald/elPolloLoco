@@ -11,7 +11,7 @@ class World {
     // Objekte
     // wird ein Objekt der Klasse World erstellt, so werden auch weitere Objekte der der unten aufgeführten Klassen erstellt.
     character = new Character('img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-21.png', 80, 460, 240, 122);
-    throwingBottle = [];
+    throwingBottles = [];
     collectedBottles = 0; // Zähler für gesammelte Flaschen
 
     healthBar = new HealthBar(10, 0, 40, 160, 100);
@@ -20,7 +20,7 @@ class World {
 
 
     enemies = level1.enemies;
-    endboss = level1.endboss;
+    endboss = level1.enemies[level1.enemies.lenght -1];
 
     clouds = level1.clouds;
     landscapes = level1.landscapes;
@@ -49,8 +49,37 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowingBottle();
-            // this.check_X_PositionOfCharacter();
+            this.checkCollisionsWithBottles();
+            this.checkCollisionsWithThrowingBottlesToEnemy();
         }, 200);
+    }
+
+    /**
+     *  mit den geworfenen Flaschen den Feind treffen
+     */
+    checkCollisionsWithThrowingBottlesToEnemy(){
+            this.enemies.forEach((enemy)=>{
+                this.throwingBottles.forEach((throwingBottle) => {
+                    if (throwingBottle.isColliding(enemy)) {
+                        console.log("getroffen");
+                    }
+                })
+            });
+    }
+
+    /**
+     * wenn Pepe mit Flasche kollidiert und Anzahl gesammelter Flaschen kleiner als 10 ist
+     * dann sammelt er Flasche ein.
+     */
+    checkCollisionsWithBottles(){
+            this.bottles.forEach((botella) => {
+                if (this.character.isColliding(botella) && this.collectedBottles < 10) {
+                    this.bottles.splice(this.bottles.indexOf(botella), 1);
+                    this.collectedBottles++;
+                    console.log(this.collectedBottles + " Flasche gesammelt")
+                    this.bottleBar.setPercentage(this.collectedBottles * 10);
+                }
+            });
     }
 
     /**
@@ -60,7 +89,7 @@ class World {
     checkThrowingBottle() {
         if (this.keyboardInWorld.D && this.collectedBottles > 0) {
             let bottle = new ThrowingBottle('img/7.Marcadores/Icono/Botella.png', (this.character.x) + (this.character.width - 30), (this.character.y) + (this.character.height / 2), 52, 51);
-            this.throwingBottle.push(bottle);
+            this.throwingBottles.push(bottle);
             if (this.collectedBottles > 0) {
                 this.collectedBottles--;
                 this.bottleBar.setPercentage(this.collectedBottles * 10);
@@ -93,24 +122,7 @@ class World {
                 this.healthBar.setPercentage(this.character.energy);
             }
         });
-            // wenn Pepe mit Flasche kollidiert und Anzahl gesammelter Flaschen kleiner als 10 ist
-            // dann sammelt er Flasche ein.
-            this.bottles.forEach((botella) => {
-                if (this.character.isColliding(botella) && this.collectedBottles < 10) {
-                    this.bottles.splice(this.bottles.indexOf(botella), 1);
-                    this.collectedBottles++;
-                    console.log(this.collectedBottles + " Flasche gesammelt")
-                    this.bottleBar.setPercentage(this.collectedBottles * 10);
-                    // this.collect();
-                }
-            });
     }
-
-    // collect(){
-    //     this.bottles.splice(this.bottles.indexOf(botella),1);
-    //     console.log("Flasche gesammelt")
-    // }
-
 
     /**
      *  this function transfers the objects to canvas
@@ -134,7 +146,7 @@ class World {
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.bottles);
         this.addToMap(this.character);
-        this.addObjectsToMap(this.throwingBottle);
+        this.addObjectsToMap(this.throwingBottles);
         this.addObjectsToMap(this.enemies);
         this.ctx.translate(-this.camera_x, 0);
 
@@ -169,7 +181,7 @@ class World {
         }
 
         mo.draw(this.ctx);
-        // mo.drawFrame(this.ctx);
+        mo.drawFrame(this.ctx);
 
         if (mo.otherDirection) { //.....................................prüft ob sich "otherDirection" verändert hat
             this.flipImageBack(mo);
