@@ -5,6 +5,7 @@ class Character extends MovableObject {
     intervalTime = 75;
     world;
     speed = 7;
+    loosingEnergyPerHit = 0.002;
     walking_sound = new Audio('audio/running_hard_surface.mp3');
     jump_sound = new Audio('audio/jump.mp3');
 

@@ -5,6 +5,7 @@ class DrawableObject{
     img;
     imageCache = {};
     currentImage = 0;
+    energy = 100;
 
     /**
      *(E)

@@ -3,8 +3,9 @@ class MovableObject extends DrawableObject {
     otherDirection = false; //...........Variable zum spiegeln des Characters
     speedY = 0; //.......................Variable für Fallgeschwindigkeit
     acceleration = 1.3; //...............Variable für Beschleunigung
-    energy = 100;
+    // energy = 100;
     lastHit = 0;
+    loosingEnergyPerHit = 0;
 
     setX_PositionOfCharacter(x_PositionOfCharacter){
         this.x_PositionOfCharacter = x_PositionOfCharacter;
@@ -60,6 +61,7 @@ class MovableObject extends DrawableObject {
         setInterval(() => {
             if (this.x < (-780 - this.width)) {
                 this.x = 2700 + this.width;
+                this.energy = 100;
             }
             this.x -= speed;
         }, 1000 / 60);
@@ -112,7 +114,7 @@ class MovableObject extends DrawableObject {
      * (D) verringert bei Kollision die Energiepunkte und speichert den Zeitpunkt der letzten Kollision
      */
     hit() {
-        this.energy -= 0.002;
+        this.energy -= this.loosingEnergyPerHit;
         if (this.energy < 0) {
             this.energy = 0;
         } else {

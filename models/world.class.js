@@ -17,6 +17,7 @@ class World {
     healthBar = new HealthBar(10, 0, 40, 160, 100);
     coinBar = new CoinBar(10, 30, 40, 160, 0);
     bottleBar = new BottleBar(10, 60, 40, 160, 0);
+    healthBarEndboss = new HealthBarEndboss(600, 0, 40, 160, 100);
 
 
     enemies = level1.enemies;
@@ -51,7 +52,10 @@ class World {
             this.checkThrowingBottle();
             this.checkCollisionsWithBottles();
             this.checkCollisionsWithThrowingBottlesToEnemy();
-        }, 200);
+        }, 100);
+        setInterval(() => {
+            this.checkCollisionsWithThrowingBottlesToEnemy();
+        }, 50);
     }
 
     /**
@@ -60,8 +64,14 @@ class World {
     checkCollisionsWithThrowingBottlesToEnemy(){
             this.enemies.forEach((enemy)=>{
                 this.throwingBottles.forEach((throwingBottle) => {
-                    if (throwingBottle.isColliding(enemy)) {
-                        console.log("getroffen");
+                    if (throwingBottle.isColliding(enemy) && enemy instanceof Endboss) {
+                        let endboss = this.level.enemies[this.level.enemies.length - 1];
+                        enemy.hit();
+                        console.log("Endboss getroffen, Energie von " + endboss + " ist " + endboss.energy);
+                        this.healthBarEndboss.setPercentage(endboss.energy);
+                    }else if (throwingBottle.isColliding(enemy)) {
+                        enemy.hit();
+                        console.log("Huhn getroffen, Energie von " + enemy + " ist " + enemy.energy);
                     }
                 })
             });
@@ -87,7 +97,7 @@ class World {
      * wenn ja, dann wird Flasche erstellt und in ein Array verschoben
      */
     checkThrowingBottle() {
-        if (this.keyboardInWorld.D && this.collectedBottles > 0) {
+        if (this.keyboardInWorld.D && this.collectedBottles < 100) { // hier noch auf "this.collectedBottles > 0" ändern
             let bottle = new ThrowingBottle('img/7.Marcadores/Icono/Botella.png', (this.character.x) + (this.character.width - 30), (this.character.y) + (this.character.height / 2), 52, 51);
             this.throwingBottles.push(bottle);
             if (this.collectedBottles > 0) {
@@ -116,7 +126,7 @@ class World {
      */
     checkCollisions() {
         this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
+            if (this.character.isColliding(enemy) && !enemy.isDead()) {
                 this.character.hit();
                 console.log('you get hurt by ', enemy, 'your energy: ', this.character.energy);
                 this.healthBar.setPercentage(this.character.energy);
@@ -141,6 +151,7 @@ class World {
         this.addToMap(this.healthBar);
         this.addToMap(this.coinBar);
         this.addToMap(this.bottleBar);
+        this.addToMap(this.healthBarEndboss);
 
         // "bewegliche" Positionierung von Objekten durch die "ctx.translate"-Funktion
         this.ctx.translate(this.camera_x, 0);
@@ -181,7 +192,7 @@ class World {
         }
 
         mo.draw(this.ctx);
-        mo.drawFrame(this.ctx);
+        // mo.drawFrame(this.ctx);
 
         if (mo.otherDirection) { //.....................................prüft ob sich "otherDirection" verändert hat
             this.flipImageBack(mo);

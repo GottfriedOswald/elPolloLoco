@@ -1,7 +1,7 @@
 class Endboss extends MovableObject {
 
   
-
+    loosingEnergyPerHit = 6;
     intervalTime = 300;
     speed = 0.15;
     speedfaktor = 1;
@@ -43,10 +43,25 @@ class Endboss extends MovableObject {
         'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/2.Ateción-ataque/2.Ataque/G20.png'
     ];
 
+    IMAGES_HERIDA = [
+        'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/3.Herida/G21.png',
+        'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/3.Herida/G22.png',
+        'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/3.Herida/G23.png'
+    ];
+
+    IMAGES_MUERTE = [
+        'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/4.Muerte/G24.png',
+        'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/4.Muerte/G25.png',
+        'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/4.Muerte/G26.png'
+    ];
+
     constructor(imgUrl, x, y, height, width){
         super().loadImage(imgUrl);
         this.loadImages(this.IMAGES_ALERTA);
         this.loadImages(this.IMAGES_CAMINATA);
+        this.loadImages(this.IMAGES_ATAQUE);
+        this.loadImages(this.IMAGES_HERIDA);
+        this.loadImages(this.IMAGES_MUERTE);
 
         this.x = x;
         this.y = y;
@@ -56,13 +71,32 @@ class Endboss extends MovableObject {
         // this.moveLeft(this.speed + (Math.random()*this.speedfaktor));
     }
 
+    // walkanimation(){
+    //     setInterval(() => {
+    //         this.playAnimation(this.IMAGES_ATAQUE);
+    //         if (this.currentImage > 998) {
+    //             this.currentImage = 0;
+    //         }
+    //         this.currentImage++;
+    //     },this.intervalTime);
+    // }
+
     walkanimation(){
         setInterval(() => {
-
+            if (this.energy < 100 && this.energy >= 80) {
+                this.playAnimation(this.IMAGES_ALERTA);
+            }else if(this.energy < 80 && this.energy >= 50) {
+                this.playAnimation(this.IMAGES_ATAQUE);
+            }else if(this.energy < 50 && this.energy > 0) {
+                this.playAnimation(this.IMAGES_HERIDA);
+            }else if(this.energy <= 0) {
+                this.isDead();
+                this.playAnimation(this.IMAGES_MUERTE);
+            }else{
             this.playAnimation(this.IMAGES_CAMINATA);
             if (this.currentImage > 998) {
                 this.currentImage = 0;
-            }
+            }}
             this.currentImage++;
         },this.intervalTime);
     }
