@@ -13,6 +13,7 @@ class World {
     character = new Character('img/2.Secuencias_Personaje-Pepe-corrección/2.Secuencia_caminata/W-21.png', 80, 460, 240, 122);
     throwingBottles = [];
     collectedBottles = 0; // Zähler für gesammelte Flaschen
+    collectedCoins = 0; // Zähler für gesammelte Münzen
 
     healthBar = new HealthBar(10, 0, 40, 160, 100);
     coinBar = new CoinBar(10, 30, 40, 160, 0);
@@ -27,6 +28,7 @@ class World {
     landscapes = level1.landscapes;
 
     bottles = level1.bottles;
+    coins = level1.coins;
 
 
     constructor(canvas, keyboard) {
@@ -51,6 +53,7 @@ class World {
             this.checkCollisions();
             this.checkThrowingBottle();
             this.checkCollisionsWithBottles();
+            this.checkCollisionsWithCoins();
             this.checkCollisionsWithThrowingBottlesToEnemy();
         }, 100);
         setInterval(() => {
@@ -64,16 +67,31 @@ class World {
     checkCollisionsWithThrowingBottlesToEnemy(){
             this.enemies.forEach((enemy)=>{
                 this.throwingBottles.forEach((throwingBottle) => {
-                    if (throwingBottle.isColliding(enemy) && enemy instanceof Endboss) {
+                    if (throwingBottle.isColliding(enemy) && enemy instanceof Endboss && !enemy.isHurt()) {
                         let endboss = this.level.enemies[this.level.enemies.length - 1];
                         enemy.hit();
                         console.log("Endboss getroffen, Energie von " + endboss + " ist " + endboss.energy);
                         this.healthBarEndboss.setPercentage(endboss.energy);
-                    }else if (throwingBottle.isColliding(enemy)) {
+                    }else if (throwingBottle.isColliding(enemy) && !enemy.isHurt()) {
                         enemy.hit();
                         console.log("Huhn getroffen, Energie von " + enemy + " ist " + enemy.energy);
                     }
                 })
+            });
+    }
+
+    /**
+     * wenn Pepe mit Münze kollidiert und Anzahl gesammelter Münzen kleiner als 10 ist
+     * dann sammelt er Münze ein.
+     */
+         checkCollisionsWithCoins(){
+            this.coins.forEach((coin) => {
+                if (this.character.isColliding(coin) && this.collectedCoins < 10) {
+                    this.coins.splice(this.coins.indexOf(coin), 1);
+                    this.collectedCoins++;
+                    console.log(this.collectedCoins + " Münze(n) gesammelt")
+                    this.coinBar.setPercentage(this.collectedCoins * 10);
+                }
             });
     }
 
@@ -97,7 +115,7 @@ class World {
      * wenn ja, dann wird Flasche erstellt und in ein Array verschoben
      */
     checkThrowingBottle() {
-        if (this.keyboardInWorld.D && this.collectedBottles < 100) { // hier noch auf "this.collectedBottles > 0" ändern
+        if (this.keyboardInWorld.D && this.collectedBottles > 0) { // hier noch auf "this.collectedBottles > 0" ändern
             let bottle = new ThrowingBottle('img/7.Marcadores/Icono/Botella.png', (this.character.x) + (this.character.width - 30), (this.character.y) + (this.character.height / 2), 52, 51);
             this.throwingBottles.push(bottle);
             if (this.collectedBottles > 0) {
@@ -156,6 +174,7 @@ class World {
         // "bewegliche" Positionierung von Objekten durch die "ctx.translate"-Funktion
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.bottles);
+        this.addObjectsToMap(this.coins);
         this.addToMap(this.character);
         this.addObjectsToMap(this.throwingBottles);
         this.addObjectsToMap(this.enemies);

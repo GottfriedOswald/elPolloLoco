@@ -5,7 +5,7 @@ class Chicken extends MovableObject {
     intervalTime = 95;
     speed = 0.25;
     speedfaktor = 1;
-    loosingEnergyPerHit = 100;
+    loosingEnergyPerHit = 50;
 
     offsetRight = -10;
     offsetLeft = 0;
@@ -38,7 +38,7 @@ class Chicken extends MovableObject {
 
     walkanimation() {
         setInterval(() => {
-            if (this.energy < 100) {
+            if (this.energy <= 0) {
                 this.playAnimation(this.IMAGE_MUERTE);
             } else {
                 this.playAnimation(this.IMAGES_WALKING);

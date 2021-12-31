@@ -1,7 +1,7 @@
 class Endboss extends MovableObject {
 
   
-    loosingEnergyPerHit = 6;
+    loosingEnergyPerHit = 11;
     intervalTime = 300;
     speed = 0.15;
     speedfaktor = 1;
