@@ -36,12 +36,24 @@
 
         <h1>El pollo loco</h1>
         <div class="canvasFrame">
-            <img class="startImage" id="startImage" src="img/9.Intro_Outro_Image/Start_Screen/Opción2.png" alt="">
+
+            <div class="infoblock">
+                <div class="main">
+                    <div>jump</div>
+                    <img class="directionImage" src="img/icons/LogoMakr-keyboardArrows.png" alt="">
+                    <div>left right</div>
+                </div>
+            </div>
+
+            <img class="canvasImage d-none" id="youLostImage" src="img/9.Intro_Outro_Image/_Game over_ screen/2.oh no you lost!.png" alt="">
+            <img class="canvasImage" id="startImage" src="img/9.Intro_Outro_Image/Start_Screen/Opción2.png" alt="">
+            <img class="canvasImage d-none" id="gameOverImage" src="img/9.Intro_Outro_Image/_Game over_ screen/4.Game over!.png" alt="">
             <canvas class="d-none" id="canvas" width="780" height="480"></canvas>
             <div class="infoblock">
-                <div><img class="directionImage" src="img/icons/LogoMakr-keyboardArrows.png" alt=""></div>
+                    
                 
-                <div><button class="startButton" onclick="startGame()">Start Game</button></div>
+                <div><button class="playAndResetButton" id="startBtn" onclick="startGame()">Start<br>Game</button></div>
+                <div><button class="playAndResetButton d-none" id="resetBtn" onclick="resetGame()">Reset</button></div>
             </div>
         </div>
     </div>

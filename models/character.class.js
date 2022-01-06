@@ -5,9 +5,11 @@ class Character extends MovableObject {
     intervalTime = 75;
     world;
     speed = 7;
-    loosingEnergyPerHit = 0.002;
+    loosingEnergyPerHit = 15;
     walking_sound = new Audio('audio/running_hard_surface.mp3');
     jump_sound = new Audio('audio/jump.mp3');
+    getHitSound = new Audio('audio/Man_hurt-aah.mp3');
+    bg_Sound = new Audio('audio/bg-music.mp3');
 
     offsetRight = 30;
     offsetLeft = 30;
@@ -69,6 +71,10 @@ class Character extends MovableObject {
         this.applyGravity();
     }
 
+    playBgSound() {
+        this.bg_Sound.play();
+    }
+
     /**
      * (E) animates walking when moving
      */
@@ -77,17 +83,17 @@ class Character extends MovableObject {
         setInterval(() => {
 
             this.walking_sound.pause();
-            if (this.world.keyboardInWorld.RIGHT && this.x < 2420) {
+            if (!this.isDead() && this.world.keyboardInWorld.RIGHT && this.x < 2420) {
                 this.moveRight();
                 this.playWalkingSoundOfCharacter();
             }
 
-            if (this.world.keyboardInWorld.LEFT && this.x > -670) {
+            if (!this.isDead() && this.world.keyboardInWorld.LEFT && this.x > -670) {
                 this.moveLeft();
                 this.playWalkingSoundOfCharacter();
             }
 
-            if (this.world.keyboardInWorld.UP && !this.isAboveGround()) {
+            if (!this.isDead() && this.world.keyboardInWorld.UP && !this.isAboveGround()) {
                 this.jump();
                 this.playJumpSoundOfCharacter();
             }
@@ -98,14 +104,27 @@ class Character extends MovableObject {
         }, 1000 / 60);
 
         setInterval(() => {
-
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
+                this.isDying();
+                this.bg_Sound.pause();
+
+                //................................
+                setTimeout(() => {
+                    this.showLostImage();
+                },1500);
+                // setTimeout(() => {
+                //     this.restart();
+                // },1000);
+                //................................
+
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
+                this.playGetHitSound();
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else {
+                this.bg_Sound.play();
                 if (this.world.keyboardInWorld.RIGHT || this.world.keyboardInWorld.LEFT) {
                     this.playAnimation(this.IMAGES_WALKING); // ich übergebe die Bilder der Lauf-Animation an die Funktion
                 }

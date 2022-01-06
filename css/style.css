@@ -28,7 +28,7 @@ canvas {
 
 .canvasFrame{
     width: 850px;
-    height: 600px;
+    /* height: 600px; */
     background-color: rgb(255, 255, 250);
     border: black 1px solid;
     border-radius: 32px;
@@ -38,16 +38,17 @@ canvas {
     align-items: center;
 }
 
-.startImage{
+.canvasImage{
     width: 780px;
     height: 480px;
     border-radius: 16px;
 }
 
-.startButton{
+.playAndResetButton{
     margin-top: 16px;
+    margin-bottom: 16px;
     width: 150px;
-    height: 80px;
+    height: 40px;
     border-radius: 8px;
 }
 
@@ -59,7 +60,7 @@ canvas {
 }
 
 .directionImage{
-    height: 80px;
+    height: 60px;
 }
 
 .d-none{

@@ -6,6 +6,7 @@ class Chicken extends MovableObject {
     speed = 0.25;
     speedfaktor = 1;
     loosingEnergyPerHit = 50;
+    getHitSound = new Audio('audio/small-chicken-hit.mp3');
 
     offsetRight = -10;
     offsetLeft = 0;
@@ -38,8 +39,11 @@ class Chicken extends MovableObject {
 
     walkanimation() {
         setInterval(() => {
-            if (this.energy <= 0) {
+            if (this.isHurt()) {
+                this.playGetHitSound();
+            } else if (this.energy <= 0) {
                 this.playAnimation(this.IMAGE_MUERTE);
+                this.isDying();
             } else {
                 this.playAnimation(this.IMAGES_WALKING);
                 if (this.currentImage > 998) {

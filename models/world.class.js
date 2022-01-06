@@ -6,7 +6,7 @@ class World {
     ctx;
     keyboardInWorld;
     camera_x = 0; // Variable zum Verschieben des sichtbaren Bereichs / der Kamera / des Bildausschnitts
-
+    // bg_Sound = new Audio('audio/bg-music.mp3');
 
     // Objekte
     // wird ein Objekt der Klasse World erstellt, so werden auch weitere Objekte der der unten aufgeführten Klassen erstellt.
@@ -30,6 +30,8 @@ class World {
     bottles = level1.bottles;
     coins = level1.coins;
 
+    throwBottle_sound = new Audio('audio/throw_01.mp3');
+
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -49,6 +51,9 @@ class World {
      * ruft in einem Intervall verschiedene Funktionen auf
      */
     run() {
+        // setInterval(() => {
+        //     this.playBgSound();
+        // }, 100);
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowingBottle();
@@ -60,6 +65,10 @@ class World {
             this.checkCollisionsWithThrowingBottlesToEnemy();
         }, 50);
     }
+
+    // playBgSound(){
+    //     this.bg_Sound.play();
+    // }
 
     /**
      *  mit den geworfenen Flaschen den Feind treffen
@@ -115,9 +124,10 @@ class World {
      * wenn ja, dann wird Flasche erstellt und in ein Array verschoben
      */
     checkThrowingBottle() {
-        if (this.keyboardInWorld.D && this.collectedBottles > 0) { // hier noch auf "this.collectedBottles > 0" ändern
+        if (this.keyboardInWorld.D && this.collectedBottles < 100) { // hier noch auf "this.collectedBottles > 0" ändern
             let bottle = new ThrowingBottle('img/7.Marcadores/Icono/Botella.png', (this.character.x) + (this.character.width - 30), (this.character.y) + (this.character.height / 2), 52, 51);
             this.throwingBottles.push(bottle);
+            this.playThrowBottleSound();
             if (this.collectedBottles > 0) {
                 this.collectedBottles--;
                 this.bottleBar.setPercentage(this.collectedBottles * 10);
@@ -238,5 +248,7 @@ class World {
         this.ctx.restore(); //......................................macht Änderung von "scale" und "translate" wieder rückgängig bzw. stellt den "save"-Zustand wieder her
     }
 
-
+    playThrowBottleSound(){
+        this.throwBottle_sound.play();
+    }
 }

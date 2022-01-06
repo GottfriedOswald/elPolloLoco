@@ -52,5 +52,11 @@ window.addEventListener('keyup', e => {
 function startGame() {
     document.getElementById('startImage').classList.add('d-none');
     document.getElementById('canvas').classList.remove('d-none');
+    document.getElementById('startBtn').classList.add('d-none');
+    document.getElementById('resetBtn').classList.remove('d-none');
     init();
+}
+
+function resetGame() {
+    location.reload();
 }

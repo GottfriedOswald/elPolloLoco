@@ -9,3 +9,13 @@ to do:
 
  -Endboss soll Schaden nehmen
   wenn mit Flasche getroffen
+
+  ________________________________________________________________________
+  Funktionen in der movable-object Klasse
+
+  isDying(){
+      setInterval(() => {
+          this.y -= this.speedY;
+          this.speedY -= acceleration_dying;
+      },35);
+  }

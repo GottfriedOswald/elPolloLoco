@@ -3,11 +3,12 @@ class MovableObject extends DrawableObject {
     otherDirection = false; //...........Variable zum spiegeln des Characters
     speedY = 0; //.......................Variable für Fallgeschwindigkeit
     acceleration = 1.3; //...............Variable für Beschleunigung
+    acceleration_dying = 3; //...........Beschleunigung beim Sterben
     // energy = 100;
     lastHit = 0;
     loosingEnergyPerHit = 0;
 
-    setX_PositionOfCharacter(x_PositionOfCharacter){
+    setX_PositionOfCharacter(x_PositionOfCharacter) {
         this.x_PositionOfCharacter = x_PositionOfCharacter;
     }
 
@@ -131,5 +132,34 @@ class MovableObject extends DrawableObject {
 
     isDead() {
         return this.energy == 0;
+    }
+
+    isDying() {
+        setTimeout(() => {
+            setInterval(() => {
+                this.y -= this.speedY;
+                this.speedY -= this.acceleration_dying;
+                // console.log(this.x, this.y);
+            }, 35);
+        }, 500);
+
+    }
+
+    playGetHitSound() {
+        this.getHitSound.play();
+    }
+
+    showLostImage() {
+        document.getElementById('canvas').classList.add('d-none');
+        document.getElementById('youLostImage').classList.remove('d-none');
+    }
+
+    showGameOverImage() {
+        document.getElementById('canvas').classList.add('d-none');
+        document.getElementById('gameOverImage').classList.remove('d-none');
+    }
+
+    restart() {
+        location.reload();
     }
 }

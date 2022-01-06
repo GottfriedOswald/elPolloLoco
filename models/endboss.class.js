@@ -1,11 +1,12 @@
 class Endboss extends MovableObject {
 
-  
+
     loosingEnergyPerHit = 11;
     intervalTime = 300;
     speed = 0.15;
     speedfaktor = 1;
     endboss_world;
+    getHitSound = new Audio('audio/big-chicken-hit.mp3');
     offsetRight = 10;
     offsetLeft = 10;
     offsetTop = 20;
@@ -55,7 +56,7 @@ class Endboss extends MovableObject {
         'img/4.Secuencias_Enemy_gigantón-Doña_Gallinota-/4.Muerte/G26.png'
     ];
 
-    constructor(imgUrl, x, y, height, width){
+    constructor(imgUrl, x, y, height, width) {
         super().loadImage(imgUrl);
         this.loadImages(this.IMAGES_ALERTA);
         this.loadImages(this.IMAGES_CAMINATA);
@@ -81,24 +82,34 @@ class Endboss extends MovableObject {
     //     },this.intervalTime);
     // }
 
-    walkanimation(){
+    walkanimation() {
         setInterval(() => {
-            if (this.energy < 100 && this.energy >= 80) {
+            if (this.isHurt()) {
+                this.playGetHitSound();
+            } else if (this.energy < 100 && this.energy >= 80) {
                 this.playAnimation(this.IMAGES_ALERTA);
-            }else if(this.energy < 80 && this.energy >= 50) {
+            } else if (this.energy < 80 && this.energy >= 50) {
                 this.playAnimation(this.IMAGES_ATAQUE);
-            }else if(this.energy < 50 && this.energy > 0) {
+            } else if (this.energy < 50 && this.energy > 0) {
                 this.playAnimation(this.IMAGES_HERIDA);
-            }else if(this.energy <= 0) {
+            } else if (this.energy <= 0) {
                 this.isDead();
                 this.playAnimation(this.IMAGES_MUERTE);
-            }else{
-            this.playAnimation(this.IMAGES_CAMINATA);
-            if (this.currentImage > 998) {
-                this.currentImage = 0;
-            }}
+                this.isDying();
+                setTimeout(() => {
+                    this.showGameOverImage();
+                },1500);
+                setTimeout(() => {
+                    this.restart();
+                },5000);
+            } else {
+                this.playAnimation(this.IMAGES_CAMINATA);
+                if (this.currentImage > 998) {
+                    this.currentImage = 0;
+                }
+            }
             this.currentImage++;
-        },this.intervalTime);
+        }, this.intervalTime);
     }
 
 }
