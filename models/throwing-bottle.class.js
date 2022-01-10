@@ -55,10 +55,10 @@ class ThrowingBottle extends ThrowableObject {
     }
 
     throwBottle() {
-        this.speedY = 19;
-        this.applyGravity();
-        setInterval(() => {
-            this.x += 20;
+            this.speedY = 19;
+            this.applyGravity();
+            setInterval(() => {
+                this.x += 20;
                 this.playAnimation(this.IMAGES_BOTTLE_ROTATION);
             }, 30);
     }

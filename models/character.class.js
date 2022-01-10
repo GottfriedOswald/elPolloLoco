@@ -5,7 +5,7 @@ class Character extends MovableObject {
     intervalTime = 75;
     world;
     speed = 7;
-    loosingEnergyPerHit = 15;
+    loosingEnergyPerHit = 10;
     walking_sound = new Audio('audio/running_hard_surface.mp3');
     jump_sound = new Audio('audio/jump.mp3');
     getHitSound = new Audio('audio/Man_hurt-aah.mp3');
@@ -113,10 +113,6 @@ class Character extends MovableObject {
                 setTimeout(() => {
                     this.showLostImage();
                 },1500);
-                // setTimeout(() => {
-                //     this.restart();
-                // },1000);
-                //................................
 
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);

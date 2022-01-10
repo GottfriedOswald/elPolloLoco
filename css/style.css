@@ -22,12 +22,14 @@ body {
 }
 
 canvas {
+    display: block;
+    width: 95%;
     background-color: rgba(0, 0, 0, 0.555);
     border-radius: 16px;
 }
 
 .canvasFrame{
-    width: 850px;
+    width: 85%;
     /* height: 600px; */
     background-color: rgb(255, 255, 250);
     border: black 1px solid;
@@ -39,8 +41,8 @@ canvas {
 }
 
 .canvasImage{
-    width: 780px;
-    height: 480px;
+    width: 95%;
+    /* height: 480px; */
     border-radius: 16px;
 }
 
@@ -60,9 +62,44 @@ canvas {
 }
 
 .directionImage{
-    height: 60px;
+    width: 70%;
+    border-radius: 8px;
+    margin:  1%;
 }
 
 .d-none{
     display: none;
+}
+
+.helpview{
+    position: absolute;
+    width: 97%;
+    border-radius: 32px;
+    z-index: 99;
+}
+
+@media (min-width: 940px) {
+    .canvasFrame{
+        width: 780px;
+    }
+
+    .helpview{
+        position: absolute;
+        width:880px;
+    }
+ }
+
+ @media only screen and (max-width: 780px){
+     canvas {
+         width: 100%;
+     }
+ }
+
+ @media only screen and (max-height: 480px){
+    canvas {
+        height: 100vh;
+    }
+    h1{
+        display: none;
+    }
 }

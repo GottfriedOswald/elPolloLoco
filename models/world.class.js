@@ -6,7 +6,7 @@ class World {
     ctx;
     keyboardInWorld;
     camera_x = 0; // Variable zum Verschieben des sichtbaren Bereichs / der Kamera / des Bildausschnitts
-    // bg_Sound = new Audio('audio/bg-music.mp3');
+    text = "aaaaaaa";
 
     // Objekte
     // wird ein Objekt der Klasse World erstellt, so werden auch weitere Objekte der der unten aufgeführten Klassen erstellt.
@@ -20,9 +20,8 @@ class World {
     bottleBar = new BottleBar(10, 60, 40, 160, 0);
     healthBarEndboss = new HealthBarEndboss(600, 0, 40, 160, 100);
 
-
     enemies = level1.enemies;
-    endboss = level1.enemies[level1.enemies.lenght -1];
+    endboss = level1.enemies[level1.enemies.lenght - 1];
 
     clouds = level1.clouds;
     landscapes = level1.landscapes;
@@ -73,50 +72,50 @@ class World {
     /**
      *  mit den geworfenen Flaschen den Feind treffen
      */
-    checkCollisionsWithThrowingBottlesToEnemy(){
-            this.enemies.forEach((enemy)=>{
-                this.throwingBottles.forEach((throwingBottle) => {
-                    if (throwingBottle.isColliding(enemy) && enemy instanceof Endboss && !enemy.isHurt()) {
-                        let endboss = this.level.enemies[this.level.enemies.length - 1];
-                        enemy.hit();
-                        console.log("Endboss getroffen, Energie von " + endboss + " ist " + endboss.energy);
-                        this.healthBarEndboss.setPercentage(endboss.energy);
-                    }else if (throwingBottle.isColliding(enemy) && !enemy.isHurt()) {
-                        enemy.hit();
-                        console.log("Huhn getroffen, Energie von " + enemy + " ist " + enemy.energy);
-                    }
-                })
-            });
+    checkCollisionsWithThrowingBottlesToEnemy() {
+        this.enemies.forEach((enemy) => {
+            this.throwingBottles.forEach((throwingBottle) => {
+                if (throwingBottle.isColliding(enemy) && enemy instanceof Endboss && !enemy.isHurt()) {
+                    let endboss = this.level.enemies[this.level.enemies.length - 1];
+                    enemy.hit();
+                    console.log("Endboss getroffen, Energie von " + endboss + " ist " + endboss.energy);
+                    this.healthBarEndboss.setPercentage(endboss.energy);
+                } else if (throwingBottle.isColliding(enemy) && !enemy.isHurt()) {
+                    enemy.hit();
+                    console.log("Huhn getroffen, Energie von " + enemy + " ist " + enemy.energy);
+                }
+            })
+        });
     }
 
     /**
      * wenn Pepe mit Münze kollidiert und Anzahl gesammelter Münzen kleiner als 10 ist
      * dann sammelt er Münze ein.
      */
-         checkCollisionsWithCoins(){
-            this.coins.forEach((coin) => {
-                if (this.character.isColliding(coin) && this.collectedCoins < 10) {
-                    this.coins.splice(this.coins.indexOf(coin), 1);
-                    this.collectedCoins++;
-                    console.log(this.collectedCoins + " Münze(n) gesammelt")
-                    this.coinBar.setPercentage(this.collectedCoins * 10);
-                }
-            });
+    checkCollisionsWithCoins() {
+        this.coins.forEach((coin) => {
+            if (this.character.isColliding(coin) && this.collectedCoins < 10) {
+                this.coins.splice(this.coins.indexOf(coin), 1);
+                this.collectedCoins++;
+                console.log(this.collectedCoins + " Münze(n) gesammelt")
+                this.coinBar.setPercentage(this.collectedCoins * 10);
+            }
+        });
     }
 
     /**
      * wenn Pepe mit Flasche kollidiert und Anzahl gesammelter Flaschen kleiner als 10 ist
      * dann sammelt er Flasche ein.
      */
-    checkCollisionsWithBottles(){
-            this.bottles.forEach((botella) => {
-                if (this.character.isColliding(botella) && this.collectedBottles < 10) {
-                    this.bottles.splice(this.bottles.indexOf(botella), 1);
-                    this.collectedBottles++;
-                    console.log(this.collectedBottles + " Flasche gesammelt")
-                    this.bottleBar.setPercentage(this.collectedBottles * 10);
-                }
-            });
+    checkCollisionsWithBottles() {
+        this.bottles.forEach((botella) => {
+            if (this.character.isColliding(botella) && this.collectedBottles < 10) {
+                this.bottles.splice(this.bottles.indexOf(botella), 1);
+                this.collectedBottles++;
+                console.log(this.collectedBottles + " Flasche gesammelt")
+                this.bottleBar.setPercentage(this.collectedBottles * 10);
+            }
+        });
     }
 
     /**
@@ -124,7 +123,7 @@ class World {
      * wenn ja, dann wird Flasche erstellt und in ein Array verschoben
      */
     checkThrowingBottle() {
-        if (this.keyboardInWorld.D && this.collectedBottles < 100) { // hier noch auf "this.collectedBottles > 0" ändern
+        if (this.keyboardInWorld.D && this.collectedBottles > 0) { // hier noch auf "this.collectedBottles > 0" ändern
             let bottle = new ThrowingBottle('img/7.Marcadores/Icono/Botella.png', (this.character.x) + (this.character.width - 30), (this.character.y) + (this.character.height / 2), 52, 51);
             this.throwingBottles.push(bottle);
             this.playThrowBottleSound();
@@ -168,7 +167,7 @@ class World {
      */
     draw() {
         this.ctx.clearRect(0, 0, this.canvasToClear.width, this.canvasToClear.height); // canvas-Fläche wird geleert
-
+        
         // "bewegliche" Positionierung von Objekten durch die "ctx.translate"-Funktion
         this.ctx.translate(this.camera_x, 0);
         this.addObjectsToMap(this.landscapes);
@@ -190,6 +189,8 @@ class World {
         this.addObjectsToMap(this.enemies);
         this.ctx.translate(-this.camera_x, 0);
 
+        this.drawText();
+
         // draw() wird immer wieder aufgerufen
         // "this" muss in eine neu erstellte Variable ("self") kopiert werden,
         // da in der anonymen Funktion der "requestAnimationFrame"-Funktion das "this" nicht angenommen wird
@@ -197,6 +198,13 @@ class World {
         requestAnimationFrame(function () {
             self.draw();
         });
+    }
+
+    drawText(){
+        this.ctx.font = '24px serif';
+        this.ctx.fillText('x '+ this.character.energy, 170, 34);
+        this.ctx.fillText('x '+ this.collectedCoins, 170, 64);
+        this.ctx.fillText('x '+ this.collectedBottles, 170, 94);
     }
 
     /**
@@ -248,7 +256,7 @@ class World {
         this.ctx.restore(); //......................................macht Änderung von "scale" und "translate" wieder rückgängig bzw. stellt den "save"-Zustand wieder her
     }
 
-    playThrowBottleSound(){
+    playThrowBottleSound() {
         this.throwBottle_sound.play();
     }
 }

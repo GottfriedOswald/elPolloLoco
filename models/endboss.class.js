@@ -72,16 +72,6 @@ class Endboss extends MovableObject {
         // this.moveLeft(this.speed + (Math.random()*this.speedfaktor));
     }
 
-    // walkanimation(){
-    //     setInterval(() => {
-    //         this.playAnimation(this.IMAGES_ATAQUE);
-    //         if (this.currentImage > 998) {
-    //             this.currentImage = 0;
-    //         }
-    //         this.currentImage++;
-    //     },this.intervalTime);
-    // }
-
     walkanimation() {
         setInterval(() => {
             if (this.isHurt()) {

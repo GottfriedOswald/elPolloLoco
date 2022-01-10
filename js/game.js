@@ -15,6 +15,7 @@ function init() {
  * 
  */
 window.addEventListener('keydown', e => {
+    // console.log(e);
     if (e.key === "ArrowUp") {
         keyboard.UP = true;
     }
@@ -29,8 +30,12 @@ window.addEventListener('keydown', e => {
     }
     if (e.code === "KeyD") {
         keyboard.D = true;
+        setTimeout(() => {
+            keyboard.D = false;
+        },101);
     }
-})
+});
+
 window.addEventListener('keyup', e => {
     if (e.key === "ArrowUp") {
         keyboard.UP = false;
@@ -47,7 +52,24 @@ window.addEventListener('keyup', e => {
     if (e.code === "KeyD") {
         keyboard.D = false;
     }
-})
+});
+
+window.addEventListener('keypress', logKey => {
+    // console.log(logKey);
+    if (logKey.code === "KeyH") {
+        showHelpdesk();
+    }
+});
+
+function showHelpdesk() {
+    let hv = document.getElementById('helpview');
+    if (hv.classList.contains('d-none')) {
+        hv.classList.remove('d-none');
+    }else{
+        hv.classList.add('d-none');
+    }
+    
+}
 
 function startGame() {
     document.getElementById('startImage').classList.add('d-none');
