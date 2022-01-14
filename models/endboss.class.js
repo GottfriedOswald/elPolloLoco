@@ -1,10 +1,10 @@
 class Endboss extends MovableObject {
 
 
-    loosingEnergyPerHit = 11;
+    loosingEnergyPerHit = 8;
     intervalTime = 300;
-    speed = 0.15;
-    speedfaktor = 1;
+    speed = 10;
+    speedfaktor = 0.25;
     endboss_world;
     getHitSound = new Audio('audio/big-chicken-hit.mp3');
     offsetRight = 10;
@@ -72,16 +72,33 @@ class Endboss extends MovableObject {
         // this.moveLeft(this.speed + (Math.random()*this.speedfaktor));
     }
 
+    moveLeft(factor) {
+        this.x -= this.speed * factor;
+    }
+
+    moving(factor){
+        setTimeout(() => {
+            this.moveLeft(factor);
+        },1500);
+    }
+
     walkanimation() {
         setInterval(() => {
             if (this.isHurt()) {
                 this.playGetHitSound();
+                console.log(this.x);
             } else if (this.energy < 100 && this.energy >= 80) {
                 this.playAnimation(this.IMAGES_ALERTA);
+                // this.moving(1);
+                this.moveLeft(1);
             } else if (this.energy < 80 && this.energy >= 50) {
                 this.playAnimation(this.IMAGES_ATAQUE);
+                // this.moving(2);
+                this.moveLeft(2);
             } else if (this.energy < 50 && this.energy > 0) {
                 this.playAnimation(this.IMAGES_HERIDA);
+                // this.moving(3);
+                this.moveLeft(3);
             } else if (this.energy <= 0) {
                 this.isDead();
                 this.playAnimation(this.IMAGES_MUERTE);

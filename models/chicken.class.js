@@ -3,8 +3,8 @@ class Chicken extends MovableObject {
     height = 0;
     width = 0;
     intervalTime = 95;
-    speed = 0.25;
-    speedfaktor = 1;
+    speed = 0.5;
+    speedfaktor = 1.5;
     loosingEnergyPerHit = 50;
     getHitSound = new Audio('audio/small-chicken-hit.mp3');
 

@@ -43,18 +43,26 @@
                 </div>
             </div>
 
-            <img class="canvasImage d-none" id="youLostImage" src="img/9.Intro_Outro_Image/_Game over_ screen/2.oh no you lost!.png" alt="">
+            <img class="canvasImage d-none" id="youLostImage" onclick="resetGame()" src="img/9.Intro_Outro_Image/_Game over_ screen/2.oh no you lost!.png" alt="">
             <img class="canvasImage" id="startImage" src="img/9.Intro_Outro_Image/Start_Screen/Opción2.png" alt="">
             <img class="canvasImage d-none" id="gameOverImage" src="img/9.Intro_Outro_Image/_Game over_ screen/4.Game over!.png" alt="">
             <img class="helpview d-none" id="helpview" onclick="showHelpdesk()" src="img/Help/helpview.png" alt="">
             <canvas class="d-none" id="canvas" width="780" height="480"></canvas>
+            
+            <div class="startButton">
+                <div><button class="playAndResetButton" id="startBtn" onclick="startGame()">Start</button></div>
+            </div>
+            
             <div class="infoblock">
-                    
-                
                 <div><button class="playAndResetButton" id="startBtn" onclick="startGame()">Start<br>Game</button></div>
                 <div><button class="playAndResetButton d-none" id="resetBtn" onclick="resetGame()">Reset</button></div>
             </div>
         </div>
+
+        <!-- <div>
+            <canvas class="" id="canvas" width="780" height="480"></canvas>
+        </div> -->
+        
     </div>
 
 </body>
