@@ -6,7 +6,7 @@ class World {
     ctx;
     keyboardInWorld;
     camera_x = 0; // Variable zum Verschieben des sichtbaren Bereichs / der Kamera / des Bildausschnitts
-    text = "aaaaaaa";
+    // text = "aaaaaaa";
 
     // Objekte
     // wird ein Objekt der Klasse World erstellt, so werden auch weitere Objekte der der unten aufgeführten Klassen erstellt.
@@ -257,6 +257,7 @@ class World {
     }
 
     playThrowBottleSound() {
+        this.throwBottle_sound.volume = 0.3;
         this.throwBottle_sound.play();
     }
 }

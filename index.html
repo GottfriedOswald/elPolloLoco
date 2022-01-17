@@ -27,7 +27,6 @@
     <script src="models/endboss.class.js"></script>
     <script src="models/coin.class.js"></script>
     <script src="levels/level1.js"></script>
-    <script src="js/game.js"></script>
 </head>
 
 <body>
@@ -43,28 +42,65 @@
                 </div>
             </div>
 
-            <img class="canvasImage d-none" id="youLostImage" onclick="resetGame()" src="img/9.Intro_Outro_Image/_Game over_ screen/2.oh no you lost!.png" alt="">
-            <img class="canvasImage" id="startImage" src="img/9.Intro_Outro_Image/Start_Screen/Opción2.png" alt="">
-            <img class="canvasImage d-none" id="gameOverImage" src="img/9.Intro_Outro_Image/_Game over_ screen/4.Game over!.png" alt="">
+
+            <div class="controlPanel spaceBetween">
+
+                <div class="controlBtnGroup spaceBetween">
+
+                    <div class="controlBtnFrame">
+                        <button id="btnMoveLeft">
+                            <img src="img/icons/W-21-left-thumb.png" class="controlBtnImg" alt="">
+                        </button>
+                    </div>
+
+                    <div class="controlBtnFrame">
+                        <button id="btnMoveRight">
+                            <img src="img/icons/W-21-right-thumb.png" class="controlBtnImg" alt="">
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="controlBtnGroup spaceBetween">
+
+                    <div class="controlBtnFrame">
+                        <button id="btnThrowBottle">
+                            <img src="img/icons/botella.png" class="controlBtnImg" alt="">
+                        </button>
+                    </div>
+
+                    <div class="controlBtnFrame">
+                        <button id="btnJump">
+                            <img src="img/icons/J-34-thumb_1.png" class="controlBtnImg" alt="">
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <img class="canvasImage d-none" id="youLostImage" onclick="resetGame()"
+                src="img/9.Intro_Outro_Image/_Game over_ screen/2.oh no you lost!.png" alt="">
+            <img class="canvasImage" id="startImage" src="img/9.Intro_Outro_Image/Start_Screen/Opción2.png"
+                alt="">
+            <img class="canvasImage d-none" id="gameOverImage"
+                src="img/9.Intro_Outro_Image/_Game over_ screen/4.Game over!.png" alt="">
             <img class="helpview d-none" id="helpview" onclick="showHelpdesk()" src="img/Help/helpview.png" alt="">
             <canvas class="d-none" id="canvas" width="780" height="480"></canvas>
-            
+
             <div class="startButton">
-                <div><button class="playAndResetButton" id="startBtn" onclick="startGame()">Start</button></div>
+                <button class="playAndResetButton" id="startBtnMobile" onclick="startGame()">Start</button>
             </div>
-            
+
             <div class="infoblock">
                 <div><button class="playAndResetButton" id="startBtn" onclick="startGame()">Start<br>Game</button></div>
                 <div><button class="playAndResetButton d-none" id="resetBtn" onclick="resetGame()">Reset</button></div>
             </div>
         </div>
-
-        <!-- <div>
-            <canvas class="" id="canvas" width="780" height="480"></canvas>
-        </div> -->
-        
     </div>
 
+
+    <script src="js/game.js"></script>
 </body>
 
 </html>

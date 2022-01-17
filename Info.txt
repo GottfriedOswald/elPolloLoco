@@ -11,18 +11,17 @@ to do:
   wenn mit Flasche getroffen
 
   ________________________________________________________________________
-  Funktionen in der movable-object Klasse
 
-  isDying(){
-      setInterval(() => {
-          this.y -= this.speedY;
-          this.speedY -= acceleration_dying;
-      },35);
-  }
+Bedienknöpfe für Smartphone 
 
-  ________________________________________________________________________
+document.getElementById("btn-move-left").addEventListener("touchstart", ()=>{
+  keyboard.LEFT = true;
+});
 
-  /**
+document.getElementById("btn-move-left").addEventListener("touchend", ()=>{
+  keyboard.LEFT = false;
+});
+
 
 * Preload all images. This function should be executed before starting the game.
 

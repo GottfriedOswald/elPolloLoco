@@ -10,12 +10,38 @@ function init() {
     world = new World(canvas, keyboard);
 }
 
+
+document.getElementById('btnMoveLeft').addEventListener("touchstart", () =>{
+    keyboard.LEFT = true;
+});
+document.getElementById('btnMoveLeft').addEventListener('touchend', ()=>{
+    keyboard.LEFT = false;
+});
+document.getElementById('btnMoveRight').addEventListener('touchstart', ()=>{
+    keyboard.RIGHT = true;
+});
+document.getElementById('btnMoveRight').addEventListener('touchend', ()=>{
+    keyboard.RIGHT = false;
+});
+document.getElementById('btnThrowBottle').addEventListener('touchstart', ()=>{
+    keyboard.D = true;
+});
+document.getElementById('btnThrowBottle').addEventListener('touchend', ()=>{
+    keyboard.D = false;
+});
+document.getElementById('btnJump').addEventListener('touchstart', ()=>{
+    keyboard.UP = true;
+});
+document.getElementById('btnJump').addEventListener('touchend', ()=>{
+    keyboard.UP = false;
+});
+
 /**
  * es wird geprüft ob eine der pfeiltasten oder die leertaste gedrückt und/oder losgelassen wurde. demzufolge wird ein parameter geändert
  * 
  */
 window.addEventListener('keydown', e => {
-    // console.log(e);
+    console.log(e);
     if (e.key === "ArrowUp") {
         keyboard.UP = true;
     }
@@ -61,6 +87,21 @@ window.addEventListener('keypress', logKey => {
     }
 });
 
+window.addEventListener('keypress', logKey => {
+    // console.log(logKey);
+    if (logKey.code === "KeyM") {
+        this.musicOnOff();
+    }
+});
+
+function musicOnOff(){
+    if (keyboard.M == false) {
+        keyboard.M = true;
+    }else{
+        keyboard.M = false;
+    }
+}
+
 function showHelpdesk() {
     let hv = document.getElementById('helpview');
     if (hv.classList.contains('d-none')) {
@@ -75,6 +116,7 @@ function startGame() {
     document.getElementById('startImage').classList.add('d-none');
     document.getElementById('canvas').classList.remove('d-none');
     document.getElementById('startBtn').classList.add('d-none');
+    document.getElementById('startBtnMobile').classList.add('d-none');
     document.getElementById('resetBtn').classList.remove('d-none');
     init();
 }

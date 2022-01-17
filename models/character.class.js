@@ -5,7 +5,7 @@ class Character extends MovableObject {
     intervalTime = 75;
     world;
     speed = 7;
-    loosingEnergyPerHit = 10;
+    loosingEnergyPerHit = 0.0010;
     walking_sound = new Audio('audio/running_hard_surface.mp3');
     jump_sound = new Audio('audio/jump.mp3');
     getHitSound = new Audio('audio/Man_hurt-aah.mp3');
@@ -72,7 +72,12 @@ class Character extends MovableObject {
     }
 
     playBgSound() {
+        this.bg_Sound.volume = 0.10;
         this.bg_Sound.play();
+    }
+
+    pauseBgSound(){
+        this.bg_Sound.pause();
     }
 
     /**
@@ -120,7 +125,12 @@ class Character extends MovableObject {
             } else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else {
-                this.bg_Sound.play();
+                if (world.keyboardInWorld.M) {
+                    this.playBgSound();
+                }else{
+                    this.pauseBgSound();
+                }
+                
                 if (this.world.keyboardInWorld.RIGHT || this.world.keyboardInWorld.LEFT) {
                     this.playAnimation(this.IMAGES_WALKING); // ich übergebe die Bilder der Lauf-Animation an die Funktion
                 }

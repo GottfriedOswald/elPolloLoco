@@ -61,7 +61,7 @@ class MovableObject extends DrawableObject {
     ObjectsMoveLeft(speed) {
         setInterval(() => {
             if (this.x < (-780 - this.width)) {
-                this.x = 2700 + this.width;
+                this.x = 3000 + this.width;
                 this.energy = 100;
             }
             this.x -= speed;
@@ -70,11 +70,13 @@ class MovableObject extends DrawableObject {
 
     playWalkingSoundOfCharacter() {
         if (!this.isAboveGround()) {
+            this.walking_sound.volume = 0.15;
             this.walking_sound.play();
         }
     }
 
     playJumpSoundOfCharacter() {
+        this.jump_sound.volume = 0.15;
         this.jump_sound.play();
     }
 
@@ -146,6 +148,7 @@ class MovableObject extends DrawableObject {
     }
 
     playGetHitSound() {
+        this.getHitSound.volume = 0.15;
         this.getHitSound.play();
     }
 

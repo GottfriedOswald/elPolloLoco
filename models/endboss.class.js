@@ -69,10 +69,23 @@ class Endboss extends MovableObject {
         this.height = height;
         this.width = width;
         this.walkanimation();
-        // this.moveLeft(this.speed + (Math.random()*this.speedfaktor));
+    }
+
+    ObjectsMoveLeft(speed) {
+        setInterval(() => {
+            if (this.x < (-780 - this.width)) {
+                this.x = 2700 + this.width;
+                this.energy = 100;
+            }
+            this.x -= speed;
+        }, 1000 / 60);
     }
 
     moveLeft(factor) {
+        if (this.x < (-780 - this.width)) {
+            this.x = 3000 + this.width;
+            // this.energy = 100;
+        }
         this.x -= this.speed * factor;
     }
 
@@ -89,15 +102,12 @@ class Endboss extends MovableObject {
                 console.log(this.x);
             } else if (this.energy < 100 && this.energy >= 80) {
                 this.playAnimation(this.IMAGES_ALERTA);
-                // this.moving(1);
                 this.moveLeft(1);
             } else if (this.energy < 80 && this.energy >= 50) {
                 this.playAnimation(this.IMAGES_ATAQUE);
-                // this.moving(2);
                 this.moveLeft(2);
             } else if (this.energy < 50 && this.energy > 0) {
                 this.playAnimation(this.IMAGES_HERIDA);
-                // this.moving(3);
                 this.moveLeft(3);
             } else if (this.energy <= 0) {
                 this.isDead();

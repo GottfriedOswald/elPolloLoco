@@ -24,7 +24,8 @@ body {
 canvas {
     display: block;
     width: 95%;
-    background-color: rgba(0, 0, 0, 0.555);
+    /* background-color: rgba(0, 0, 0, 0.555); */
+    background-color: rgba(0, 0, 0, 0.1);
     border-radius: 16px;
 }
 
@@ -74,18 +75,44 @@ canvas {
     position: absolute;
     width: 97%;
     border-radius: 32px;
-    z-index: 99;
+    /* z-index: 99; */
 }
 
 .startButton{
     display: none;
     position: absolute;
     top: 0;
-    bottom: 0;
+    bottom: 100;
     left: 0;
     right: 0;
     /* display: flex; */
     justify-content: center;
+}
+
+.controlPanel{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px 20px 5px 20px;
+}
+
+.spaceBetween{
+    display: none;
+    justify-content: space-between;
+}
+
+.controlBtnFrame{
+    margin: 16px 30px 5px 30px;
+}
+
+.controlBtnImg{
+    height: 32px;
+    z-index: 99;
+}
+
+#btnMoveLeft {
+    z-index: 99;
 }
 
 @media (min-width: 940px) {
@@ -131,7 +158,11 @@ canvas {
         display: flex;
     }
 
+    .spaceBetween{
+        display: flex;
+    }
+
     #youLostImage{
-        z-index: 10;
+        z-index: 1;
     }
 }
